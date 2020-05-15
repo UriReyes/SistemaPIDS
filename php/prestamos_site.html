@@ -1,0 +1,318 @@
+<div class="contenedor-prestamos-site">
+  <div class="separador separacion">
+    <h3>
+      <i class="fas fa-robot"></i><a id="home1" href="#">Home</a> >
+      <a id="inventario_laboratorio">Site</a> >
+      <a id="inventario_laboratorio" class="resaltar_ruta">Prestamos</a>
+    </h3>
+  </div>
+  <div class="prestamos-site-contenedor">
+    <div class="vista1">
+      <form id="form_inventario_site">
+        <div class="contenedor">
+          <div class="icono-input-form">
+            <input type="hidden" name="id_site" id="id_site" />
+            <input
+              type="date"
+              id="fecha_prestamo"
+              name="fecha_prestamo"
+              class="buscar margin-top-15"
+              placeholder="Fecha"
+              readonly="readonly"
+            />
+            <small>Fecha Prestamo</small>
+            <div class="hijo-edit hijo-fecha">
+              <a
+                class="icono-input fecha-icon boton-transparente Onlyicono"
+              ></a>
+            </div>
+          </div>
+          <!--Fin Fecha Prestamo-->
+          <div class="icono-input-form">
+            <input
+              type="date"
+              id="fecha_regreso"
+              name="fecha_regreso"
+              class="buscar margin-top-15"
+              placeholder="Fecha"
+            />
+            <small>Fecha Regreso</small>
+            <div class="hijo-edit hijo-fecha">
+              <a
+                class="icono-input fecha-icon boton-transparente Onlyicono"
+              ></a>
+            </div>
+          </div>
+          <!--Fin Fecha Regreso-->
+          <div class="icono-input-form">
+            <input
+              type="text"
+              id="marca_site"
+              name="marca_site"
+              class="buscar margin-top-15"
+              placeholder="Marca"
+              readonly="readonly"
+            />
+            <small>Marca del artículo</small>
+            <div class="hijo-edit hijo-edit-prestamos">
+              <a
+                class="icono-input computer-icon boton-transparente Onlyicono"
+              ></a>
+            </div>
+          </div>
+          <!-- <div class="icono-input-form">
+            <input
+              type="text"
+              id="modelo_site"
+              name="modelo_site"
+              class="buscar margin-top-15"
+              placeholder="Modelo"
+              readonly="readonly"
+            />
+            <div class="hijo-edit">
+              <a
+                class="icono-input computer-icon boton-transparente Onlyicono"
+              ></a>
+            </div>
+          </div> -->
+          <div class="icono-input-form">
+            <input
+              type="text"
+              id="numero_serie_site"
+              name="numero_serie_site"
+              class="buscar margin-top-15"
+              placeholder="Número de Serie"
+              readonly="readonly"
+            />
+            <small>No. de Serie</small>
+            <div class="hijo-edit hijo-edit-prestamos">
+              <a
+                class="icono-input computer-icon boton-transparente Onlyicono"
+              ></a>
+            </div>
+          </div>
+          <!-- <div class="icono-input-form">
+            <input
+              type="text"
+              id="folio_site"
+              name="folio_site"
+              class="buscar margin-top-15"
+              placeholder="Folio"
+              readonly="readonly"
+            />
+            <div class="hijo-edit">
+              <a
+                class="icono-input computer-icon boton-transparente Onlyicono"
+              ></a>
+            </div>
+          </div> -->
+          <!-- <div class="icono-input-form">
+            <input
+              type="text"
+              id="estatus_site"
+              name="estatus_site"
+              class="buscar margin-top-15"
+              placeholder="Estatus"
+              readonly="readonly"
+            />
+            <div class="hijo-edit">
+              <a
+                class="icono-input computer-icon boton-transparente Onlyicono"
+              ></a>
+            </div>
+          </div> -->
+          <!-- <div class="icono-input-form">
+            <input
+              type="text"
+              id="articulo_site"
+              name="articulo_site"
+              class="buscar margin-top-15"
+              placeholder="Articulo"
+              readonly="readonly"
+            />
+            <div class="hijo-edit">
+              <a
+                class="icono-input computer-icon boton-transparente Onlyicono"
+              ></a>
+            </div>
+          </div> -->
+          <div class="icono-input-form">
+            <input
+              type="text"
+              id="piezas_site"
+              name="piezas_site"
+              class="buscar margin-top-15"
+              placeholder="No. Piezas"
+            />
+            <small>Número de piezas a prestar</small>
+            <div class="hijo-edit hijo-edit-prestamos">
+              <a
+                class="icono-input computer-icon boton-transparente Onlyicono"
+              ></a>
+            </div>
+          </div>
+          <div class="icono-input-form">
+            <input
+              type="text"
+              id="alumno_prestamo"
+              name="alumno_prestamo"
+              class="buscar margin-top-15"
+              placeholder="Nombre del Alumno"
+            />
+            <small>Nombre del Alumno</small>
+            <div class="hijo-edit hijo-edit-prestamos">
+              <a
+                class="icono-input computer-icon boton-transparente Onlyicono"
+              ></a>
+            </div>
+          </div>
+          <div class="icono-input-form">
+            <input
+              type="text"
+              id="Control_prestamo"
+              name="Control_prestamo"
+              class="buscar margin-top-15"
+              placeholder="No. Control del Alumno"
+            />
+            <small>No. control del Alumno</small>
+            <div class="hijo-edit hijo-edit-prestamos">
+              <a
+                class="icono-input computer-icon boton-transparente Onlyicono"
+              ></a>
+            </div>
+          </div>
+          <div class="icono-input-form">
+            <select
+              type="text"
+              id="Carrera_prestamo"
+              name="Carrera_prestamo"
+              class="buscar margin-top-15"
+              placeholder="Carrera del Alumno"
+            >
+              <option disabled selected value>
+                -- Selecciona una carrera--
+              </option>
+              <option value="NUEVO">Ing. Sistemas Computacionales</option>
+              <option value="USADO">ITIC´s</option>
+            </select>
+            <small>Carrera del Alumno</small>
+          </div>
+        </div>
+      </form>
+      <div class="contenedor-add-button">
+        <a id="prestar" class="boton-grande boton-prestar" href="#">Prestar</a>
+      </div>
+    </div>
+    <div class="vista2">
+      <div class="add-registro prestamo-width">
+        <div class="buscador">
+          <form>
+            <input
+              type="search"
+              id="search"
+              class="buscar"
+              placeholder="Buscador..."
+            />
+            <div class="hijo">
+              <p class="icono-input buscador-icon boton-transparente"></p>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <div class="informacion-home prestamo-width">
+        <div class="home-card tabla_general contenedor-acordeon">
+          <div class="head-homecard titulo-acordeon">
+            <h1>Control de Prestamos del Site</h1>
+            <span class="toggle-icon"></span>
+          </div>
+          <div class="body-tabla-general contenido-acordeon">
+            <table
+              id="tabla-prestamos-site"
+              class="table dt-responsive nowrap"
+              style="width: 100%;"
+            >
+              <thead class="thead-dark">
+                <tr>
+                  <th scope="col">Fecha</th>
+                  <th scope="col">Marca</th>
+                  <th scope="col">Modelo</th>
+                  <th scope="col">No. Serie</th>
+                  <th scope="col">Folio</th>
+                  <th scope="col">Estatus</th>
+                  <th scope="col">Articulo</th>
+                  <th scope="col">Piezas</th>
+                  <th scope="col">Acciones</th>
+                </tr>
+              </thead>
+              <!-- <tbody id="datos-site"></tbody> -->
+            </table>
+          </div>
+          <!--Body acordeon-->
+        </div>
+        <!--Acordeon-->
+        <div class="home-card tabla_general contenedor-acordeon">
+          <div class="head-homecard titulo-acordeon">
+            <h1>Control de articulos prestados</h1>
+            <span class="toggle-icon"></span>
+          </div>
+          <div class="body-tabla-general contenido-acordeon">
+            <table
+              id="tabla-articulos-prestados"
+              class="table dt-responsive nowrap"
+              style="width: 100%;"
+            >
+              <thead class="thead-dark">
+                <tr>
+                  <th scope="col">Fecha</th>
+                  <th scope="col">Marca</th>
+                  <th scope="col">Modelo</th>
+                  <th scope="col">Características</th>
+                  <th scope="col">Distintivo</th>
+                  <th scope="col">Estatus</th>
+                  <th scope="col">Articulo</th>
+                  <th scope="col">Piezas</th>
+                  <th scope="col">Acciones</th>
+                </tr>
+              </thead>
+              <!-- <tbody id="datos-site"></tbody> -->
+            </table>
+          </div>
+          <!--Body acordeon-->
+        </div>
+        <!--Acordeon todavia falta modificar-->
+        <div class="home-card tabla_general contenedor-acordeon">
+          <div class="head-homecard titulo-acordeon">
+            <h1>Control de vales</h1>
+            <span class="toggle-icon"></span>
+          </div>
+          <div class="body-tabla-general contenido-acordeon">
+            <table
+              id="tabla-vales"
+              class="table dt-responsive nowrap"
+              style="width: 100%;"
+            >
+              <thead class="thead-dark">
+                <tr>
+                  <th scope="col">Fecha</th>
+                  <th scope="col">Marca</th>
+                  <th scope="col">Modelo</th>
+                  <th scope="col">Características</th>
+                  <th scope="col">Distintivo</th>
+                  <th scope="col">Estatus</th>
+                  <th scope="col">Articulo</th>
+                  <th scope="col">Piezas</th>
+                  <th scope="col">Acciones</th>
+                </tr>
+              </thead>
+              <!-- <tbody id="datos-site"></tbody> -->
+            </table>
+          </div>
+          <!--Body acordeon-->
+        </div>
+        <!--Acordeon todavia falta modificar-->
+      </div>
+    </div>
+    <!--fin vista2 -->
+  </div>
+</div>

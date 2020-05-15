@@ -1,0 +1,4 @@
+# Error 404 en Servidor Apache
+ErrorDocument 404 http://localhost/sistema_PIDS/php/404.php
+
+

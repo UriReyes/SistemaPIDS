@@ -1,0 +1,244 @@
+<div>
+  <div class="separador separacion">
+    <h3>
+      <i class="fas fa-robot"></i><a id="home1" href="#">Home</a> >
+      <a id="inventario_laboratorio">Laboratorio</a> >
+      <a id="inventario_laboratorio" class="resaltar_ruta">Inventario</a>
+    </h3>
+  </div>
+  <div class="add-registro">
+    <div class="buscador">
+      <form>
+        <input
+          type="search"
+          id="search"
+          class="buscar"
+          placeholder="Buscador..."
+        />
+        <div class="hijo">
+          <p class="icono-input buscador-icon boton-transparente"></p>
+        </div>
+      </form>
+    </div>
+    <div class="contenedor-add-button">
+      <a id="abrirmodal" class="boton-grande boton-add" href="#">Nuevo</a>
+    </div>
+  </div>
+  <!-- <div class="add-registro">
+    <div class="buscador">
+      <form>
+        <input
+          type="search"
+          id="search"
+          class="buscar"
+          placeholder="Buscador..."
+        />
+        <div class="hijo">
+          <button class="icono-input buscador-icon boton-transparente"></button>
+        </div>
+      </form>
+    </div>
+    <div class="contenedor-add-button">
+      <button id="abrirmodal" class="boton-grande boton-add" href="#">
+        Nuevo
+      </button>
+    </div>
+  </div> -->
+
+  <div class="informacion-home">
+    <div class="home-card tabla_general">
+      <div class="head-homecard">
+        <h1>Control de Inventarios del laboratorio</h1>
+      </div>
+      <div class="body-tabla-general">
+        <table
+          id="tabla-inventario-laboratorio"
+          class="table dt-responsive nowrap"
+          style="width: 100%;"
+        >
+          <thead class="thead-dark">
+            <tr>
+              <th scope="col">Fecha</th>
+              <th scope="col">Laboratorio</th>
+              <th scope="col">Marca</th>
+              <th scope="col">Modelo</th>
+              <th scope="col">No. Serie</th>
+              <th scope="col">Folio</th>
+              <th scope="col">Estatus</th>
+              <th scope="col">Articulo</th>
+              <th scope="col">Acciones</th>
+            </tr>
+          </thead>
+          <!-- <tbody id="datos-laboratorio"></tbody> -->
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!--Modal Añadir y Editar-->
+  <div id="modaladd" class="mimodal">
+    <div id="flexmodal" class="mimodal-flex">
+      <div class="contenido-mimodal">
+        <div class="header-mimodal">
+          <i class="fas fa-box-open"></i>
+          <h1 id="titulo-mimodal" class="titulo-add">Añadir Registro</h1>
+          <span id="cerrarmodal" class="close-mimodal">&times;</span>
+        </div>
+        <div class="body-mimodal">
+          <form id="form_inventario_laboratorio">
+            <div class="contenedor">
+              <div class="icono-input-form">
+                <input
+                  type="hidden"
+                  name="id_laboratorio"
+                  id="id_laboratorio"
+                />
+                <input
+                  type="date"
+                  id="fecha_laboratorio"
+                  name="fecha_laboratorio"
+                  class="buscar"
+                  placeholder="Texto 1"
+                />
+                <small class="form-text text-muted"
+                  >Fecha de Ingreso del Artículo</small
+                >
+                <div class="hijo-edit">
+                  <a
+                    class="icono-input fecha-icon boton-transparente Onlyicono"
+                  ></a>
+                </div>
+              </div>
+              <div class="icono-input-form">
+                <select
+                  name="laboratorio_laboratorio"
+                  id="laboratorio_laboratorio"
+                  class="buscar"
+                >
+                  <option disabled selected value>
+                    -- Selecciona un Laboratorio --
+                  </option>
+                  <option value="LCA">LCA</option>
+                  <option value="LCR">LCR</option>
+                  <option value="LMAC">LMAC</option>
+                </select>
+
+                <small class="form-text text-muted">Estatus del Artículo</small>
+              </div>
+              <div class="icono-input-form">
+                <input
+                  type="text"
+                  id="marca_laboratorio"
+                  name="marca_laboratorio"
+                  class="buscar"
+                  placeholder="Marca"
+                />
+                <small class="form-text text-muted">Marca del Artículo</small>
+                <div class="hijo-edit">
+                  <a
+                    class="icono-input computer-icon boton-transparente Onlyicono"
+                  ></a>
+                </div>
+              </div>
+              <div class="icono-input-form">
+                <input
+                  type="text"
+                  id="modelo_laboratorio"
+                  name="modelo_laboratorio"
+                  class="buscar"
+                  placeholder="Modelo"
+                />
+                <small class="form-text text-muted">Modelo del Artículo</small>
+                <div class="hijo-edit">
+                  <a
+                    class="icono-input computer-icon boton-transparente Onlyicono"
+                  ></a>
+                </div>
+              </div>
+              <div class="icono-input-form">
+                <input
+                  type="text"
+                  id="serie_laboratorio"
+                  name="serie_laboratorio"
+                  class="buscar"
+                  placeholder="No. Serie"
+                />
+                <small class="form-text text-muted"
+                  >Número de serie del Artículo</small
+                >
+                <div class="hijo-edit">
+                  <a
+                    class="icono-input computer-icon boton-transparente Onlyicono"
+                  ></a>
+                </div>
+              </div>
+              <div class="icono-input-form">
+                <input
+                  type="text"
+                  id="folio_laboratorio"
+                  name="folio_laboratorio"
+                  class="buscar"
+                  placeholder="No. Folio"
+                />
+                <small class="form-text text-muted">Folio del Artículo</small>
+                <div class="hijo-edit">
+                  <a
+                    class="icono-input computer-icon boton-transparente Onlyicono"
+                  ></a>
+                </div>
+              </div>
+              <div class="icono-input-form">
+                <select
+                  id="estatus_laboratorio"
+                  name="estatus_laboratorio"
+                  class="buscar"
+                >
+                  <option disabled selected value>
+                    -- Selecciona un estatus --
+                  </option>
+                  <option value="NUEVO">Nuevo</option>
+                  <option value="USADO">Usado</option>
+                </select>
+                <small class="form-text text-muted">Estatus del Artículo</small>
+              </div>
+              <div class="icono-input-form">
+                <input
+                  type="text"
+                  id="articulo_laboratorio"
+                  name="articulo_laboratorio"
+                  class="buscar"
+                  placeholder="Nombre del Articulo"
+                />
+                <small class="form-text text-muted">Nombre del Artículo</small>
+                <div class="hijo-edit">
+                  <a
+                    class="icono-input computer-icon boton-transparente Onlyicono"
+                  ></a>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div id="modalMensajesInventarioLaboratorio"></div>
+        <div class="footer-mimodal">
+          <div class="botonGuardar">
+            <a
+              href="#"
+              id="guardar_laboratorio"
+              class="boton boton-verde boton-guardar"
+              >Guardar</a
+            >
+          </div>
+          <div class="botonCancelar">
+            <a
+              href="#"
+              id="cancelar_add"
+              class="boton boton-rojo boton-cancelar"
+              >Cancelar</a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
