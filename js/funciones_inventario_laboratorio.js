@@ -51,17 +51,9 @@ $("#abrirmodal").on("click", function () {
 });
 
 var anadir_datos = function () {
-  let swalWithBootstrapButtons = Swal.mixin({
-    customClass: {
-      confirmButton: "btn btn-danger",
-      cancelButton: "btn btn-success",
-    },
-    buttonsStyling: false,
-  });
   var guardar = document.getElementById("guardar_laboratorio");
   guardar.addEventListener("click", function () {
     if (editar == false) {
-      console.log("Insertando...");
       // Verificar si los datos son !"" o !null
       if (
         $("#fecha_laboratorio").val() !== "" &&
@@ -89,11 +81,15 @@ var anadir_datos = function () {
           function (response) {
             console.log(response);
             if (response == "Dato Insertado") {
-              Swal.fire("¡Registro insertado", "con éxito!", "success");
+              mensajeAlertaSweet(
+                "¡Registro Insertado!",
+                "El registró se insertó con exito",
+                "success"
+              );
             } else {
-              swalWithBootstrapButtons.fire(
-                "¡Ha Ocurrido Un Error!",
-                "",
+              mensajeAlertaSweet(
+                "¡Ocurrió un error!",
+                "Contácte con soporte",
                 "error"
               );
             }
@@ -126,13 +122,6 @@ var anadir_datos = function () {
 };
 
 var editar_datos = function (tbody, table) {
-  let swalWithBootstrapButtons = Swal.mixin({
-    customClass: {
-      confirmButton: "btn btn-danger",
-      cancelButton: "btn btn-success",
-    },
-    buttonsStyling: false,
-  });
   var data = null;
   $(tbody).on("click", ".editar-laboratorio", function () {
     editar = true;
@@ -189,11 +178,15 @@ var editar_datos = function (tbody, table) {
           function (response) {
             console.log(response);
             if (response == "Dato Actualizado") {
-              Swal.fire("¡Registro editado", "con éxito!", "success");
+              mensajeAlertaSweet(
+                "¡Registro Editado!",
+                "El registro se editó con éxito",
+                "success"
+              );
             } else {
-              swalWithBootstrapButtons.fire(
-                "¡Ha Ocurrido Un Error! ",
-                "",
+              mensajeAlertaSweet(
+                "!Ocurrió un error!",
+                "Contácta con soporte",
                 "error"
               );
             }
@@ -256,7 +249,7 @@ var eliminar_datos = function (tbody, table) {
     });
     swalWithBootstrapButtons
       .fire({
-        title: "¡¿Estas seguro?",
+        title: "¿Estas seguro?",
         text: "No puedes revertir este cambio!",
         icon: "warning",
         showCancelButton: true,
@@ -278,11 +271,7 @@ var eliminar_datos = function (tbody, table) {
                   "success"
                 );
               } else {
-                swalWithBootstrapButtons.fire(
-                  "Ha ocurrido un error",
-                  "",
-                  "error"
-                );
+                swalWithBootstrapButtons.fire("Ocurrió un error", "", "error");
               }
               console.log(response);
             }
@@ -292,8 +281,8 @@ var eliminar_datos = function (tbody, table) {
           result.dismiss === Swal.DismissReason.cancel
         ) {
           swalWithBootstrapButtons.fire(
-            "¡Cancelado!",
-            "No eliminaste el registro",
+            "¡Cancelaste!",
+            "No se eliminó el registro",
             "error"
           );
         }
@@ -301,6 +290,16 @@ var eliminar_datos = function (tbody, table) {
   });
 };
 
+function mensajeAlertaSweet(titulo, mensaje, tipo) {
+  let swalWithBootstrapButtons = Swal.mixin({
+    customClass: {
+      confirmButton: "btn btn btn-light",
+      cancelButton: "btn btn-danger",
+    },
+    buttonsStyling: false,
+  });
+  swalWithBootstrapButtons.fire(titulo, mensaje, tipo);
+}
 // $("#search").keyup(function() {
 //   var buscado = $("#search").val();
 // });

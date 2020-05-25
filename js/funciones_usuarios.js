@@ -138,7 +138,11 @@ guardar.addEventListener("click", function () {
               response
             ) {
               if (response == "Dato Insertado") {
-                Swal.fire("Registro insertado", "con éxito!", "success");
+                mensajeAlertaSweet(
+                  "¡Registro Insertado!",
+                  "El registró se insertó con exito",
+                  "success"
+                );
                 refrescar();
                 var modal = document.getElementById("modaladd");
                 modal.style.display = "none";
@@ -146,16 +150,9 @@ guardar.addEventListener("click", function () {
 
                 $("#form_add_users").trigger("reset");
               } else {
-                let swalWithBootstrapButtons = Swal.mixin({
-                  customClass: {
-                    confirmButton: "btn btn-danger",
-                    cancelButton: "btn btn-success",
-                  },
-                  buttonsStyling: false,
-                });
-                swalWithBootstrapButtons.fire(
-                  "Ha Ocurrido Un Error ",
-                  "",
+                mensajeAlertaSweet(
+                  "¡Ocurrió un error!",
+                  "Contácte con soporte",
                   "error"
                 );
               }
@@ -293,7 +290,11 @@ guardar.addEventListener("click", function () {
                 response
               ) {
                 if (response == "Usuario Actualizado") {
-                  Swal.fire("Registro editado", "con éxito!", "success");
+                  mensajeAlertaSweet(
+                    "¡Registro Editado!",
+                    "El registro se editó con éxito",
+                    "success"
+                  );
                   actualizarDatosSesion(postData);
                   var modal = document.getElementById("modaladd");
                   modal.style.display = "none";
@@ -311,9 +312,9 @@ guardar.addEventListener("click", function () {
                   //   mensajeSession.innerText = "";
                   // }, 4000);
                 } else {
-                  swalWithBootstrapButtons.fire(
-                    "Ha Ocurrido Un Error ",
-                    "",
+                  mensajeAlertaSweet(
+                    "!Ocurrió un error!",
+                    "Contácta con soporte",
                     "error"
                   );
                 }
@@ -336,21 +337,22 @@ guardar.addEventListener("click", function () {
           response
         ) {
           if (response == "Usuario Actualizado") {
-            Swal.fire("Registro editado", "con éxito!", "success");
+            mensajeAlertaSweet(
+              "¡Registro Editado!",
+              "El registro se editó con éxito",
+              "success"
+            );
             actualizarDatosSesion(postData);
             refrescar();
             var modal = document.getElementById("modaladd");
             modal.style.display = "none";
             console.log("Editanto");
           } else {
-            let swalWithBootstrapButtons = Swal.mixin({
-              customClass: {
-                confirmButton: "btn btn-light",
-                cancelButton: "btn btn-danger",
-              },
-              buttonsStyling: false,
-            });
-            swalWithBootstrapButtons.fire("Ha Ocurrido Un Error ", "", "error");
+            mensajeAlertaSweet(
+              "!Ocurrió un error!",
+              "Contácta con soporte",
+              "error"
+            );
           }
         });
       }
@@ -428,12 +430,12 @@ function eliminar(idUsuario) {
   });
   swalWithBootstrapButtons
     .fire({
-      title: "Estas seguro?",
-      text: "No puedes revertir este cambio!",
+      title: "¿Estás seguro?",
+      text: "No puedes revertir este cambio",
       icon: "warning",
       showCancelButton: true,
       confirmButtonText: "Si, eliminar!",
-      cancelButtonText: "No, cancelar!",
+      cancelButtonText: "No",
       reverseButtons: false,
     })
     .then((result) => {
@@ -444,8 +446,8 @@ function eliminar(idUsuario) {
           refrescar();
           if (response == "Usuario Eliminado") {
             swalWithBootstrapButtons.fire(
-              "Eliminado!",
-              "El registro ha sido eliminado.",
+              "¡Eliminado!",
+              "El registro ha sido eliminado",
               "success"
             );
           } else {
@@ -457,8 +459,8 @@ function eliminar(idUsuario) {
         result.dismiss === Swal.DismissReason.cancel
       ) {
         swalWithBootstrapButtons.fire(
-          "Cancelado",
-          "No eliminaste el registro",
+          "Cancelaste",
+          "No se eliminó el registro",
           "error"
         );
       }
@@ -519,4 +521,15 @@ function actualizarDatosSesion(datos) {
       }
     },
   });
+}
+
+function mensajeAlertaSweet(titulo, mensaje, tipo) {
+  let swalWithBootstrapButtons = Swal.mixin({
+    customClass: {
+      confirmButton: "btn btn btn-light",
+      cancelButton: "btn btn-danger",
+    },
+    buttonsStyling: false,
+  });
+  swalWithBootstrapButtons.fire(titulo, mensaje, tipo);
 }

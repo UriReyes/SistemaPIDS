@@ -51,13 +51,6 @@ $("#abrirmodal").on("click", function () {
 });
 
 var anadir_datos = function () {
-  let swalWithBootstrapButtons = Swal.mixin({
-    customClass: {
-      confirmButton: "btn btn-danger",
-      cancelButton: "btn btn-success",
-    },
-    buttonsStyling: false,
-  });
   var guardar = document.getElementById("guardar_add");
   guardar.addEventListener("click", function () {
     if (editar == false) {
@@ -88,11 +81,15 @@ var anadir_datos = function () {
           ) {
             console.log(response);
             if (response == "Dato Insertado") {
-              Swal.fire("¡Registro insertado", "con éxito!", "success");
+              mensajeAlertaSweet(
+                "¡Registro Insertado!",
+                "El registró se insertó con exito",
+                "success"
+              );
             } else {
-              swalWithBootstrapButtons.fire(
-                "¡Ha Ocurrido Un Error!",
-                "",
+              mensajeAlertaSweet(
+                "¡Ocurrió un error!",
+                "Contácte con soporte",
                 "error"
               );
             }
@@ -111,7 +108,7 @@ var anadir_datos = function () {
           div.id = "mensajeSite";
           div.classList.add("alert");
           div.classList.add("alert-danger");
-          div.innerText = "!Error¡, No puedes tener menos de 1pza.";
+          div.innerText = "No puedes tener menos de 1pza.";
           mensaje.appendChild(div);
           setTimeout(() => {
             if (document.getElementById("mensajeSite")) {
@@ -128,7 +125,7 @@ var anadir_datos = function () {
         div.id = "mensajeSite";
         div.classList.add("alert");
         div.classList.add("alert-danger");
-        div.innerText = "!Error¡, Llena todos los campos";
+        div.innerText = "Debes llenar todos los campos";
         mensaje.appendChild(div);
         setTimeout(() => {
           if (document.getElementById("mensajeSite")) {
@@ -141,13 +138,6 @@ var anadir_datos = function () {
 };
 
 function editar_datos(tbody, table) {
-  let swalWithBootstrapButtons = Swal.mixin({
-    customClass: {
-      confirmButton: "btn btn-danger",
-      cancelButton: "btn btn-success",
-    },
-    buttonsStyling: false,
-  });
   var data = null;
   $(tbody).on("click", "button.editar-site", function () {
     editar = true;
@@ -198,13 +188,17 @@ function editar_datos(tbody, table) {
           $.post("php/site/modificar-datos-site.php", postData, function (
             response
           ) {
-            console.log(response);
+            //console.log(response);
             if (response == "Dato Actualizado") {
-              Swal.fire("¡Registro editado", "con éxito!", "success");
+              mensajeAlertaSweet(
+                "¡Registro Editado!",
+                "El registro se editó con éxito",
+                "success"
+              );
             } else {
-              swalWithBootstrapButtons.fire(
-                "!Ha Ocurrido Un Error¡",
-                "",
+              mensajeAlertaSweet(
+                "!Ocurrió un error!",
+                "Contácta con soporte",
                 "error"
               );
             }
@@ -223,7 +217,7 @@ function editar_datos(tbody, table) {
           div.id = "mensajeSite";
           div.classList.add("alert");
           div.classList.add("alert-danger");
-          div.innerText = "!Error¡, No puedes tener menos de 1pza.";
+          div.innerText = "No puedes tener menos de 1pza.";
           mensaje.appendChild(div);
           setTimeout(() => {
             if (document.getElementById("mensajeSite")) {
@@ -240,7 +234,7 @@ function editar_datos(tbody, table) {
         div.id = "mensajeSite";
         div.classList.add("alert");
         div.classList.add("alert-danger");
-        div.innerText = "¡Error!, Llena todos los campos";
+        div.innerText = "Llena todos los campos";
         mensaje.appendChild(div);
         setTimeout(() => {
           if (document.getElementById("mensajeSite")) {
@@ -314,7 +308,7 @@ var eliminar_datos = function (tbody, table) {
                 );
               } else {
                 swalWithBootstrapButtons.fire(
-                  "!Ha Ocurrido Un Error¡",
+                  "!Ocurrió un error¡",
                   "",
                   "error"
                 );
@@ -327,14 +321,25 @@ var eliminar_datos = function (tbody, table) {
           result.dismiss === Swal.DismissReason.cancel
         ) {
           swalWithBootstrapButtons.fire(
-            "¡Cancelado!",
-            "No eliminaste el registro",
+            "¡Cancelaste!",
+            "No se eliminó el registro",
             "error"
           );
         }
       });
   });
 };
+
+function mensajeAlertaSweet(titulo, mensaje, tipo) {
+  let swalWithBootstrapButtons = Swal.mixin({
+    customClass: {
+      confirmButton: "btn btn btn-light",
+      cancelButton: "btn btn-danger",
+    },
+    buttonsStyling: false,
+  });
+  swalWithBootstrapButtons.fire(titulo, mensaje, tipo);
+}
 
 var idioma_espanol = {
   sProcessing: "Procesando...",

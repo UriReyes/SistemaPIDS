@@ -27,10 +27,17 @@ $(function () {
       $("form").trigger("reset");
     });
     cancelar.addEventListener("click", function () {
-      Swal.fire({
+      let swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+          confirmButton: "btn btn btn-light",
+          cancelButton: "btn btn-danger",
+        },
+        buttonsStyling: false,
+      });
+      swalWithBootstrapButtons.fire({
         icon: "error",
-        title: "¡Cancelaste...",
-        text: "No se ha añadido!",
+        title: "¡Cancelaste!",
+        text: "No se insertó ningún dato",
       });
       modal.style.display = "none";
       $("form").trigger("reset");
