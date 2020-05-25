@@ -27,18 +27,18 @@ $(function () {
       $("form").trigger("reset");
     });
     cancelar.addEventListener("click", function () {
-      let swalWithBootstrapButtons = Swal.mixin({
-        customClass: {
-          confirmButton: "btn btn btn-light",
-          cancelButton: "btn btn-danger",
-        },
-        buttonsStyling: false,
-      });
-      swalWithBootstrapButtons.fire({
-        icon: "error",
-        title: "¡Cancelaste!",
-        text: "No se insertó ningún dato",
-      });
+      // let swalWithBootstrapButtons = Swal.mixin({
+      //   customClass: {
+      //     confirmButton: "btn btn btn-light",
+      //     cancelButton: "btn btn-danger",
+      //   },
+      //   buttonsStyling: false,
+      // });
+      // swalWithBootstrapButtons.fire({
+      //   icon: "error",
+      //   title: "¡Cancelaste!",
+      //   text: "No se insertó ningún dato",
+      // });
       modal.style.display = "none";
       $("form").trigger("reset");
     });
