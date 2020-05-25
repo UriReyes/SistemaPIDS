@@ -129,3 +129,47 @@ var acordeon = function () {
     }
   });
 };
+
+/* Prestamos Control*/
+var contenedorMensajesPrestamosSite = document.getElementById(
+  "mensajesPrestamosSite"
+);
+var btnPrestar = document.getElementById("prestar");
+btnPrestar.addEventListener("click", function () {
+  prestarSiteArticulo();
+});
+
+function prestarSiteArticulo() {
+  if (
+    $("#fecha_prestamo").val() === "" ||
+    $("#fecha_regreso").val() === "" ||
+    $("#marca_site").val() === "" ||
+    $("#piezas_site").val() === "" ||
+    $("#alumno_prestamo").val() === "" ||
+    $("#Control_prestamo").val() === "" ||
+    $("#Carrera_prestamo").val() === null
+  ) {
+    if (document.getElementById("msgPrestamos")) {
+      document.getElementById("msgPrestamos").remove();
+    }
+    const div = document.createElement("div");
+    div.id = "msgPrestamos";
+    div.classList.add("badge", "badge-danger", "p-1", "mb-2");
+    div.innerText = "Falta Información";
+    contenedorMensajesPrestamosSite.appendChild(div);
+    setTimeout(() => {
+      $("#msgPrestamos").toggle(500);
+    }, 3000);
+  } else {
+    // datos
+    console.log(
+      $("#fecha_prestamo").val(),
+      $("#fecha_regreso").val(),
+      $("#marca_site").val(),
+      $("#piezas_site").val(),
+      $("#alumno_prestamo").val(),
+      $("#Control_prestamo").val(),
+      $("#Carrera_prestamo").val()
+    );
+  }
+}
