@@ -26,7 +26,7 @@ var mostrar_datos = function () {
       { data: "piezas" },
       {
         defaultContent:
-          "<div class='boton-acciones' style='width:50%'><button class='boton-prestar editar-site'>Prestar</button></div>",
+          "<div class='boton-acciones' style='width:50%'><button class='editar-site boton-prestar2'>Prestar</button></div>",
       },
     ],
     iDisplayLength: 5,

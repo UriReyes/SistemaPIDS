@@ -32,7 +32,10 @@ span {
   text-transform: capitalize;
   margin: 0;
 }
-
+input[type="date"],
+select {
+  cursor: pointer;
+}
 label {
   margin: 5px 0 5px 0;
 }
@@ -652,7 +655,7 @@ a.Onlyicono {
   text-decoration: none;
   color: #ffffff;
   transform: scale(1.1);
-  box-shadow: 0px 0px 15px #1a2226;
+  /* box-shadow: 0px 0px 15px #1a2226; */
 }
 .boton:focus {
   outline: none;
@@ -672,8 +675,9 @@ a.Onlyicono {
 .boton-grande:hover {
   text-decoration: none;
   color: #ffffff;
-  transform: scale(1.1);
-  box-shadow: 0px 0px 15px #1a2226;
+  background-color: #268d43 !important;
+  transition: 0.5s;
+  /* box-shadow: 0px 0px 15px #1a2226; */
 }
 .boton-grande:focus {
   outline: none;
@@ -779,7 +783,8 @@ a.Onlyicono {
   font-weight: 900;
   font-size: 16px;
 }
-.boton-prestar::before {
+.boton-prestar::before,
+.boton-prestar2::before {
   font-family: "Font Awesome 5 Free";
   padding: 5px;
   content: "\f2b5";
@@ -788,6 +793,7 @@ a.Onlyicono {
   font-weight: 900;
   font-size: 16px;
 }
+
 /*Colores de botones*/
 .boton-verde {
   background-color: #5cb85c;
@@ -804,7 +810,8 @@ a.Onlyicono {
 }
 
 .boton-editar,
-.boton-prestar {
+.boton-prestar,
+.boton-prestar2 {
   background-color: transparent;
   border: none;
   color: #000000;
@@ -823,9 +830,16 @@ a.Onlyicono {
   animation: swing ease-in-out 0.7s 1 alternate;
 }
 
+.boton-prestar2:hover {
+  cursor: pointer;
+  color: #263edb;
+  transition: 0.3s;
+}
+
 .boton-eliminar:focus,
 .boton-editar:focus,
-.boton-prestar:focus {
+.boton-prestar:focus,
+.boton-prestar2:focus {
   outline: none;
 }
 
@@ -1581,8 +1595,8 @@ input#fecha_regreso {
 }
 
 .vista1 {
-  flex-basis: calc(30% - 10px);
-  max-width: 70%;
+  flex-basis: calc(50% - 10px);
+  max-width: 50%;
   margin-top: -3px;
 }
 @media (max-width: 480px) {
@@ -1593,8 +1607,8 @@ input#fecha_regreso {
 }
 
 .vista2 {
-  flex-basis: calc(70% - 10px);
-  max-width: 70%;
+  flex-basis: calc(50% - 10px);
+  max-width: 50%;
 }
 @media (max-width: 480px) {
   .vista2 {
@@ -1620,4 +1634,10 @@ input#fecha_regreso {
 
 .contenido-acordeon {
   display: none;
+}
+
+span.toggle-icon:hover {
+  color: #0058ca;
+  transform: scale(0.9);
+  transition: 0.5s;
 }

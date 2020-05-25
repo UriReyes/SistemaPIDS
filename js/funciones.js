@@ -160,8 +160,8 @@ $(document).ready(function () {
     });
     swalWithBootstrapButtons
       .fire({
-        title: "¡¿Estás Seguro?",
-        text: "La sesión será cerrada!",
+        title: "¿Estás Seguro?",
+        text: "La sesión será cerrada",
         icon: "warning",
         showCancelButton: true,
         confirmButtonText: "Sí, quiero cerrar sesión.",

@@ -108,10 +108,11 @@
                                     <option disabled selected value>
                                         -- Selecciona un estatus --
                                     </option>
-                                    <option value="NUEVO">N/A</option>
+                                    <option value="N/A">N/A</option>
                                     <option value="NUEVO">Nuevo</option>
-                                    <option value="USADO">Funciona</option>
-                                    <option value="USADO">Averiado</option>
+                                    <option value="USADO">Usado</option>
+                                    <option value="FUNCIONA">Funciona</option>
+                                    <option value="AVERIADO">Averiado</option>
                                 </select>
                                 <small class="form-text text-muted">Estatus del
                                     Artículo</small>
