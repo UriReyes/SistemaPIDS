@@ -1616,7 +1616,9 @@ input#fecha_regreso {
     max-width: 100%;
   }
 }
-
+.faltante {
+  border: solid #f10e0e;
+}
 .titulo-acordeon span.toggle-icon:before {
   content: "+";
 }

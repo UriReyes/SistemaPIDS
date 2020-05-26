@@ -149,6 +149,9 @@ function prestarSiteArticulo() {
     $("#Control_prestamo").val() === "" ||
     $("#Carrera_prestamo").val() === null
   ) {
+    if ($("#fecha_regreso").val() === "") {
+      document.getElementById("fecha_regreso").classList.add("faltante");
+    }
     if (document.getElementById("msgPrestamos")) {
       document.getElementById("msgPrestamos").remove();
     }
@@ -158,18 +161,46 @@ function prestarSiteArticulo() {
     div.innerText = "Falta Información";
     contenedorMensajesPrestamosSite.appendChild(div);
     setTimeout(() => {
+      document.getElementById("fecha_regreso").classList.remove("faltante");
+      $("#msgPrestamos").toggle(500);
+    }, 3000);
+  } else if (Number($("#piezas_site").val()) < 1) {
+    if (document.getElementById("msgPrestamos")) {
+      document.getElementById("msgPrestamos").remove();
+    }
+    const div = document.createElement("div");
+    div.id = "msgPrestamos";
+    div.classList.add("badge", "badge-danger", "p-1", "mb-2");
+    div.innerText = "No se puede prestar menos de 1 pza";
+    contenedorMensajesPrestamosSite.appendChild(div);
+    setTimeout(() => {
+      $("#msgPrestamos").toggle(500);
+    }, 3000);
+  } else if (
+    $("#Control_prestamo").val().length < 8 ||
+    $("#Control_prestamo").val().length > 8
+  ) {
+    if (document.getElementById("msgPrestamos")) {
+      document.getElementById("msgPrestamos").remove();
+    }
+    const div = document.createElement("div");
+    div.id = "msgPrestamos";
+    div.classList.add("badge", "badge-danger", "p-1", "mb-2");
+    div.innerText =
+      "No es el formato de numero de control tienes que poner 8 dígitos.";
+    contenedorMensajesPrestamosSite.appendChild(div);
+    setTimeout(() => {
       $("#msgPrestamos").toggle(500);
     }, 3000);
   } else {
     // datos
-    console.log(
-      $("#fecha_prestamo").val(),
-      $("#fecha_regreso").val(),
-      $("#marca_site").val(),
-      $("#piezas_site").val(),
-      $("#alumno_prestamo").val(),
-      $("#Control_prestamo").val(),
-      $("#Carrera_prestamo").val()
-    );
+    const fechaPrestamo = $("#fecha_prestamo").val(),
+      fechaRegreso = $("#fecha_regreso").val(),
+      marca = $("#marca_site").val(),
+      numeroPiezas = $("#piezas_site").val(),
+      nombreAlumno = $("#alumno_prestamo").val(),
+      numeroControl = $("#Control_prestamo").val(),
+      carreraAlumno = $("#Carrera_prestamo").val();
+    alert(nombreAlumno, numeroControl, carreraAlumno);
   }
 }
