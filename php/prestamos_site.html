@@ -194,6 +194,7 @@
               </div>
             </div>
           </div>
+
           <div class="icono-input-form">
             <input
               type="number"
@@ -218,7 +219,7 @@
                 id="alumno_prestamo"
                 name="alumno_prestamo"
                 class="buscar margin-top-15"
-                placeholder="Nombre del Alumno"
+                placeholder="Nombre del Prestario"
               />
               <small>Nombre del Alumno</small>
               <div class="hijo-edit hijo-edit-prestamos">
@@ -227,13 +228,13 @@
                 ></a>
               </div>
             </div>
-            <div class="icono-input-form ml-1">
+            <div id="controlAlumno" class="icono-input-form ml-1">
               <input
                 type="number"
                 id="Control_prestamo"
                 name="Control_prestamo"
                 class="buscar margin-top-15"
-                placeholder="No. Control del Alumno"
+                placeholder="No. Control"
               />
               <small>No. control del Alumno</small>
               <div class="hijo-edit hijo-edit-prestamos">
@@ -243,21 +244,36 @@
               </div>
             </div>
           </div>
-          <div class="icono-input-form">
-            <select
-              type="text"
-              id="Carrera_prestamo"
-              name="Carrera_prestamo"
-              class="buscar margin-top-15"
-              placeholder="Carrera del Alumno"
+          <div class="d-flex justify-content-between">
+            <div id="carreraAlumno" class="icono-input-form">
+              <select
+                type="text"
+                id="Carrera_prestamo"
+                name="Carrera_prestamo"
+                class="buscar margin-top-15"
+                placeholder="Carrera"
+              >
+                <option disabled selected value>
+                  -- Selecciona una carrera--
+                </option>
+                <option value="NUEVO">Ing. Sistemas Computacionales</option>
+                <option value="USADO">ITIC´s</option>
+              </select>
+              <small>Carrera del Alumno</small>
+            </div>
+            <div
+              class="icono-input-form d-flex justify-content-between align-items-center pl-4"
             >
-              <option disabled selected value>
-                -- Selecciona una carrera--
-              </option>
-              <option value="NUEVO">Ing. Sistemas Computacionales</option>
-              <option value="USADO">ITIC´s</option>
-            </select>
-            <small>Carrera del Alumno</small>
+              <div class="d-flex justify-content-between align-items-center">
+                <input
+                  type="checkbox"
+                  id="tipoPrestario"
+                  class="remove-from-screen"
+                />
+                <label for="tipoPrestario" class="switch"></label>
+                <h1 id="tipoLabel" class="pl-2">Docente</h1>
+              </div>
+            </div>
           </div>
         </div>
       </form>

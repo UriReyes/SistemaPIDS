@@ -250,7 +250,7 @@ var eliminar_datos = function (tbody, table) {
     swalWithBootstrapButtons
       .fire({
         title: "¿Estas seguro?",
-        text: "No puedes revertir este cambio!",
+        text: "¡No puedes revertir este cambio!",
         icon: "warning",
         showCancelButton: true,
         confirmButtonText: "Sí, Eliminar",
