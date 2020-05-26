@@ -1643,3 +1643,14 @@ span.toggle-icon:hover {
   transform: scale(0.9);
   transition: 0.5s;
 }
+
+.sticky {
+  position: fixed;
+  top: 17%;
+  width: 37%;
+  right: 3%;
+}
+
+.sticky + .content {
+  padding-top: 102px;
+}

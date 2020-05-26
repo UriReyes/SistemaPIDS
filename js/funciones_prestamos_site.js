@@ -2,6 +2,21 @@ $(document).ready(function () {
   console.log("si we si jalo");
   acordeon();
   mostrar_datos();
+  document.getElementById("contenedorGlobal").onscroll = function () {
+    myFunction();
+  };
+
+  var header = document.getElementById("vista1Prestamos");
+  var sticky = header.offsetTop;
+
+  function myFunction() {
+    if ($("#contenedorGlobal").scrollTop() > sticky) {
+      header.classList.add("sticky");
+    } else {
+      header.classList.remove("sticky");
+    }
+    console.log($("#contenedorGlobal").scrollTop());
+  }
 });
 
 var table = null;

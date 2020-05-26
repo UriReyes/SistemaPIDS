@@ -218,7 +218,7 @@ if (!isset($_SESSION['usuario'])) {
         </nav>
         <!-- sidebar-wrapper  -->
 
-        <main class="page-content">
+        <main id="contenedorGlobal" class="page-content">
             <div class="titulo">
                 <div class="siglas-titulo">
                     <h2>INSTITUTO TECNOLÓGICO DE <span>PACHUCA</span></h2>
