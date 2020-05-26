@@ -13,19 +13,60 @@ $(document).ready(function () {
     } else {
       header.classList.remove("sticky");
     }
-    console.log($("#contenedorGlobal").scrollTop());
   }
   document
     .getElementById("tipoPrestario")
     .addEventListener("change", function () {
       if (document.getElementById("tipoPrestario").checked == true) {
-        document.getElementById("carreraAlumno").style.display = "none";
-        document.getElementById("controlAlumno").style.display = "none";
-        document.getElementById("tipoLabel").innerText = "Alumno";
+        // document.getElementById("carreraAlumno").style.display = "none";
+        // document.getElementById("controlAlumno").style.display = "none";
+        $("#carreraAlumno").hide(700);
+        $("#controlAlumno").hide(700);
+        document.getElementById("tipoLabel2").innerText = "Docente";
+        document.getElementById("tipoLabelAlumno").style.display = "block";
+        document.getElementById("tipoLabelDocente").style.display = "none";
+        // document.getElementById("fecha_prestamo").classList.remove("faltante");
+        // document.getElementById("fecha_regreso").classList.remove("faltante");
+        document.getElementById("marca_site").classList.remove("faltante");
+        document
+          .getElementById("numero_serie_site")
+          .classList.remove("faltante");
+        document.getElementById("piezas_site").classList.remove("faltante");
+        document.getElementById("alumno_prestamo").classList.remove("faltante");
+        document
+          .getElementById("Control_prestamo")
+          .classList.remove("faltante");
+        document
+          .getElementById("Carrera_prestamo")
+          .classList.remove("faltante");
+        if (document.getElementById("msgPrestamos")) {
+          document.getElementById("msgPrestamos").remove();
+        }
       } else {
-        document.getElementById("carreraAlumno").style.display = "block";
-        document.getElementById("controlAlumno").style.display = "block";
-        document.getElementById("tipoLabel").innerText = "Docente";
+        // document.getElementById("carreraAlumno").style.display = "block";
+        // document.getElementById("controlAlumno").style.display = "block";
+        $("#carreraAlumno").show(700);
+        $("#controlAlumno").show(700);
+        document.getElementById("tipoLabel2").innerText = "Alumno";
+        document.getElementById("tipoLabelAlumno").style.display = "none";
+        document.getElementById("tipoLabelDocente").style.display = "block";
+        // document.getElementById("fecha_prestamo").classList.remove("faltante");
+        // document.getElementById("fecha_regreso").classList.remove("faltante");
+        document.getElementById("marca_site").classList.remove("faltante");
+        document
+          .getElementById("numero_serie_site")
+          .classList.remove("faltante");
+        document.getElementById("piezas_site").classList.remove("faltante");
+        document.getElementById("alumno_prestamo").classList.remove("faltante");
+        document
+          .getElementById("Control_prestamo")
+          .classList.remove("faltante");
+        document
+          .getElementById("Carrera_prestamo")
+          .classList.remove("faltante");
+        if (document.getElementById("msgPrestamos")) {
+          document.getElementById("msgPrestamos").remove();
+        }
       }
     });
 });
@@ -169,19 +210,11 @@ function prestarSiteArticulo() {
   if (document.getElementById("tipoPrestario").checked == true) {
     console.log("Si");
     if (
-      $("#fecha_prestamo").val() === "" ||
-      $("#fecha_regreso").val() === "" ||
       $("#marca_site").val() === "" ||
       $("#numero_serie_site").val() === "" ||
       $("#piezas_site").val() === "" ||
       $("#alumno_prestamo").val() === ""
     ) {
-      if ($("#fecha_prestamo").val() === "") {
-        document.getElementById("fecha_prestamo").classList.add("faltante");
-      }
-      if ($("#fecha_regreso").val() === "") {
-        document.getElementById("fecha_regreso").classList.add("faltante");
-      }
       if ($("#marca_site").val() === "") {
         document.getElementById("marca_site").classList.add("faltante");
       }
@@ -203,8 +236,8 @@ function prestarSiteArticulo() {
       div.innerText = "Falta Información";
       contenedorMensajesPrestamosSite.appendChild(div);
       setTimeout(() => {
-        document.getElementById("fecha_prestamo").classList.remove("faltante");
-        document.getElementById("fecha_regreso").classList.remove("faltante");
+        // document.getElementById("fecha_prestamo").classList.remove("faltante");
+        // document.getElementById("fecha_regreso").classList.remove("faltante");
         document.getElementById("marca_site").classList.remove("faltante");
         document
           .getElementById("numero_serie_site")
@@ -225,37 +258,25 @@ function prestarSiteArticulo() {
       setTimeout(() => {
         $("#msgPrestamos").toggle(500);
       }, 3000);
-    } else if (
-      $("#Control_prestamo").val().length < 8 ||
-      $("#Control_prestamo").val().length > 8
-    ) {
-      if (document.getElementById("msgPrestamos")) {
-        document.getElementById("msgPrestamos").remove();
-      }
-      const div = document.createElement("div");
-      div.id = "msgPrestamos";
-      div.classList.add("badge", "badge-danger", "p-1", "mb-2");
-      div.innerText =
-        "No es el formato de numero de control tienes que poner 8 dígitos.";
-      contenedorMensajesPrestamosSite.appendChild(div);
-      setTimeout(() => {
-        $("#msgPrestamos").toggle(500);
-      }, 3000);
     } else {
       // datos
-      const fechaPrestamo = $("#fecha_prestamo").val(),
-        fechaRegreso = $("#fecha_regreso").val(),
-        marca = $("#marca_site").val(),
+      const marca = $("#marca_site").val(),
         numeroPiezas = $("#piezas_site").val(),
+        numeroSerie = $("#numero_serie_site").val(),
         nombreAlumno = $("#alumno_prestamo").val();
-
-      alert(nombreAlumno);
+      var hoy = new Date();
+      var hora =
+        hoy.getHours() + ":" + hoy.getMinutes() + ":" + hoy.getSeconds();
+      console.log(
+        `Nombre:${nombreAlumno}\nCantidadPrestado:${numeroPiezas},Articulo:${marca}, Serie: ${numeroSerie}\nFecha:${fechaActual()} y Hora: ${hora}
+        `
+      );
     }
   } else {
     console.log("no");
     if (
-      $("#fecha_prestamo").val() === "" ||
-      $("#fecha_regreso").val() === "" ||
+      // $("#fecha_prestamo").val() === "" ||
+      // $("#fecha_regreso").val() === "" ||
       $("#marca_site").val() === "" ||
       $("#numero_serie_site").val() === "" ||
       $("#piezas_site").val() === "" ||
@@ -263,12 +284,12 @@ function prestarSiteArticulo() {
       $("#Control_prestamo").val() === "" ||
       $("#Carrera_prestamo").val() === null
     ) {
-      if ($("#fecha_prestamo").val() === "") {
-        document.getElementById("fecha_prestamo").classList.add("faltante");
-      }
-      if ($("#fecha_regreso").val() === "") {
-        document.getElementById("fecha_regreso").classList.add("faltante");
-      }
+      // if ($("#fecha_prestamo").val() === "") {
+      //   document.getElementById("fecha_prestamo").classList.add("faltante");
+      // }
+      // if ($("#fecha_regreso").val() === "") {
+      //   document.getElementById("fecha_regreso").classList.add("faltante");
+      // }
       if ($("#marca_site").val() === "") {
         document.getElementById("marca_site").classList.add("faltante");
       }
@@ -296,8 +317,8 @@ function prestarSiteArticulo() {
       div.innerText = "Falta Información";
       contenedorMensajesPrestamosSite.appendChild(div);
       setTimeout(() => {
-        document.getElementById("fecha_prestamo").classList.remove("faltante");
-        document.getElementById("fecha_regreso").classList.remove("faltante");
+        // document.getElementById("fecha_prestamo").classList.remove("faltante");
+        // document.getElementById("fecha_regreso").classList.remove("faltante");
         document.getElementById("marca_site").classList.remove("faltante");
         document
           .getElementById("numero_serie_site")
@@ -342,14 +363,33 @@ function prestarSiteArticulo() {
       }, 3000);
     } else {
       // datos
-      const fechaPrestamo = $("#fecha_prestamo").val(),
-        fechaRegreso = $("#fecha_regreso").val(),
-        marca = $("#marca_site").val(),
+      const marca = $("#marca_site").val(),
         numeroPiezas = $("#piezas_site").val(),
+        numeroSerie = $("#numero_serie_site").val(),
         nombreAlumno = $("#alumno_prestamo").val(),
         numeroControl = $("#Control_prestamo").val(),
         carreraAlumno = $("#Carrera_prestamo").val();
-      alert(nombreAlumno, numeroControl, carreraAlumno);
+      var hoy = new Date();
+      var hora =
+        hoy.getHours() + ":" + hoy.getMinutes() + ":" + hoy.getSeconds();
+      const datos = {
+        nombre: nombreAlumno,
+        noControl: numeroControl,
+        carrera: carreraAlumno,
+        cantidad: numeroPiezas,
+        articulo: marca,
+        serie: numeroSerie,
+        fecha: fechaActual(),
+        hora: hora,
+      };
+      fetch("php/site/insertar_prestamos_site", {
+        method: "POST",
+        body: JSON.stringify(datos),
+      })
+        .then((response) => response.text())
+        .then((data) => {
+          console.log(data);
+        });
     }
   }
 }

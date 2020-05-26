@@ -123,7 +123,7 @@
         <div class="contenedor">
           <h1>Información Del Prestamo</h1>
           <!-- Fechas -->
-          <div class="d-flex justify-content-between">
+          <!-- <div class="d-flex justify-content-between">
             <div class="icono-input-form mr-1">
               <input type="hidden" name="id_site" id="id_site" />
               <input
@@ -141,7 +141,6 @@
                 ></a>
               </div>
             </div>
-            <!--Fin Fecha Prestamo-->
             <div class="icono-input-form ml-1">
               <input
                 type="date"
@@ -157,9 +156,9 @@
                 ></a>
               </div>
             </div>
-            <!--Fin Fecha Regreso-->
-          </div>
+          </div> -->
           <!-- Info -->
+          <p class="informacionLabel">Información del articulo a prestar</p>
           <div class="d-flex justify-content-between">
             <div class="icono-input-form mr-2">
               <input
@@ -212,6 +211,9 @@
             </div>
           </div>
           <!-- Info Alumno -->
+          <p class="informacionLabel pt-4">
+            Información del <span id="tipoLabel2">Alumno</span>
+          </p>
           <div class="d-flex justify-content-between infoAlumno">
             <div class="icono-input-form mr-1">
               <input
@@ -221,7 +223,7 @@
                 class="buscar margin-top-15"
                 placeholder="Nombre del Prestario"
               />
-              <small>Nombre del Alumno</small>
+              <small>Nombre del Prestario</small>
               <div class="hijo-edit hijo-edit-prestamos">
                 <a
                   class="icono-input computer-icon boton-transparente Onlyicono"
@@ -244,44 +246,44 @@
               </div>
             </div>
           </div>
-          <div class="d-flex justify-content-between">
-            <div id="carreraAlumno" class="icono-input-form">
-              <select
-                type="text"
-                id="Carrera_prestamo"
-                name="Carrera_prestamo"
-                class="buscar margin-top-15"
-                placeholder="Carrera"
-              >
-                <option disabled selected value>
-                  -- Selecciona una carrera--
-                </option>
-                <option value="NUEVO">Ing. Sistemas Computacionales</option>
-                <option value="USADO">ITIC´s</option>
-              </select>
-              <small>Carrera del Alumno</small>
-            </div>
-            <div
-              class="icono-input-form d-flex justify-content-between align-items-center pl-4"
+
+          <div id="carreraAlumno" class="icono-input-form">
+            <select
+              type="text"
+              id="Carrera_prestamo"
+              name="Carrera_prestamo"
+              class="buscar margin-top-15"
+              placeholder="Carrera"
             >
-              <div class="d-flex justify-content-between align-items-center">
-                <input
-                  type="checkbox"
-                  id="tipoPrestario"
-                  class="remove-from-screen"
-                />
-                <label for="tipoPrestario" class="switch"></label>
-                <h1 id="tipoLabel" class="pl-2">Docente</h1>
-              </div>
-            </div>
+              <option disabled selected value>
+                -- Selecciona una carrera--
+              </option>
+              <option value="Ingeniería Sistemas Computacionales"
+                >Ing. Sistemas Computacionales</option
+              >
+              <option value="ITIC´s">ITIC´s</option>
+            </select>
+            <small>Carrera del Alumno</small>
           </div>
         </div>
       </form>
       <div id="mensajesPrestamosSite"></div>
-      <div class="contenedor-add-button">
-        <a id="prestar" class="boton-grande boton-prestar" href="#"
-          >Realizar Prestamo</a
-        >
+      <div class="d-flex justify-content-between align-items-center mb-2">
+        <div class="contenedor-add-button">
+          <a id="prestar" class="boton-grande boton-prestar" href="#"
+            >Realizar Prestamo</a
+          >
+        </div>
+        <div class="d-flex justify-content-between align-items-center">
+          <h1 id="tipoLabelAlumno" class="pl-2">Alumno</h1>
+          <input
+            type="checkbox"
+            id="tipoPrestario"
+            class="remove-from-screen"
+          />
+          <label for="tipoPrestario" class="switch"></label>
+          <h1 id="tipoLabelDocente" class="pl-2">Docente</h1>
+        </div>
       </div>
     </div>
   </div>
