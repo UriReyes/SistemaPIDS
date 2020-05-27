@@ -1,7 +1,9 @@
 $(document).ready(function () {
   console.log("si we si jalo");
+
   acordeon();
   mostrar_datos();
+  mostrar_prestamos();
   document.getElementById("contenedorGlobal").onscroll = function () {
     myFunction();
   };
@@ -42,6 +44,7 @@ $(document).ready(function () {
         if (document.getElementById("msgPrestamos")) {
           document.getElementById("msgPrestamos").remove();
         }
+        document.getElementById("form_prestamos_site").reset();
       } else {
         // document.getElementById("carreraAlumno").style.display = "block";
         // document.getElementById("controlAlumno").style.display = "block";
@@ -67,11 +70,13 @@ $(document).ready(function () {
         if (document.getElementById("msgPrestamos")) {
           document.getElementById("msgPrestamos").remove();
         }
+        document.getElementById("form_prestamos_site").reset();
       }
     });
 });
 
-var table = null;
+var table = null,
+  table1 = null;
 var editar = false;
 var mostrar_datos = function () {
   table = $("#tabla-prestamos-site").DataTable({
@@ -80,6 +85,7 @@ var mostrar_datos = function () {
       type: "POST",
       url: "php/site/mostrar-datos-site.php",
     },
+    fixedHeader: true,
     columns: [
       { data: "fecha" },
       {
@@ -115,6 +121,81 @@ var mostrar_datos = function () {
   prestamo_datos("#tabla-prestamos-site", table);
 };
 
+/* Mostrar Prestamos */
+var mostrar_prestamos = function () {
+  table1 = $("#tabla-articulos-prestados").DataTable({
+    destroy: true, //sirve para reinicializar el datatable al insertar datos
+    ajax: {
+      type: "POST",
+      url: "php/site/mostrar-prestamos-site.php",
+    },
+    columns: [
+      { data: "tipo" },
+      {
+        data: "nombre_prestario",
+      },
+      { data: "no_control" },
+      { data: "carrera" },
+      { data: "articulo" },
+      { data: "serie" },
+      { data: "cantidad" },
+      { data: "fecha_prestamo" },
+      { data: "fecha_regreso" },
+      {
+        render: function (data, type, JsonResultRow, meta) {
+          if (JsonResultRow.estatus === "Prestado") {
+            return `<span class="badge badge-danger">${JsonResultRow.estatus}</span>`;
+          } else {
+            return `<span class="badge badge-success">${JsonResultRow.estatus}</span>`;
+          }
+        },
+      },
+      {
+        render: function (data, type, JsonResultRow, meta) {
+          if (JsonResultRow.estado_regreso === "Sin devolucion") {
+            return `<span class="badge badge-primary">${JsonResultRow.estado_regreso}</span>`;
+          } else if (JsonResultRow.estado_regreso === "Devuelto a tiempo") {
+            return `<span class="badge badge-success">${JsonResultRow.estado_regreso}</span>`;
+          } else if (JsonResultRow.estado_regreso === "Con tardanza") {
+            return `<span class="badge badge-warning">${JsonResultRow.estado_regreso}</span>`;
+          } else {
+            return `<span class="badge badge-danger">${JsonResultRow.estado_regreso}</span>`;
+          }
+        },
+      },
+      {
+        defaultContent:
+          "<div class='boton-acciones' style='width:50%'><button class='devolucionSite editar-site boton-prestar2'>Devolver</button><button class='devolucionSite editar-site boton-prestar2'>Imprimir Vale</button></div>",
+      },
+    ],
+    iDisplayLength: 5,
+    aLengthMenu: [
+      [5, 10, 25, 50, 100, -1],
+      [5, 10, 25, 50, 100, "All"],
+    ],
+    language: idioma_espanol,
+  });
+  $("#search1").on("keyup", function () {
+    table1.search(this.value).draw();
+  });
+  $("#search1").keypress(function (e) {
+    var keycode = e.keyCode;
+    if (keycode == "13") {
+      e.preventDefault();
+    }
+  }); // Eliminar evento Press Enter
+  prestamo_datos1("#tabla-articulos-prestados", table1);
+  $("#filtroPrestados").on("click", function () {
+    table1.search("Prestado").draw();
+  });
+  $("#filtroDevueltos").on("click", function () {
+    table1.search("Devuelto").draw();
+  });
+  $("#filtroTodos").on("click", function () {
+    table1.search("").draw();
+  });
+};
+
 var prestamo_datos = function (tbody, table) {
   var data = null;
   $(tbody).on("click", "button.editar-site", function () {
@@ -126,89 +207,131 @@ var prestamo_datos = function (tbody, table) {
       console.log("No");
       data = table.row($(this).parents("tr")).data();
     }
-    var id = $("#id_site").val(data.id),
-      fecha = $("#fecha_prestamo").val(fechaActual()),
-      marca = $("#marca_site").val(data.marca),
-      modelo = $("#modelo_site").val(data.modelo),
-      serie = $("#numero_serie_site").val(data.numero_serie),
-      folio = $("#folio_site").val(data.folio),
-      estatus = $("#estatus_site").val(data.estatus),
-      articulo = $("#articulo_site").val(data.articulo),
-      piezas = $("#piezas_site").val(data.piezas);
+    $("#id_site").val(data.id),
+      $("#fecha_prestamo").val(fechaActual()),
+      $("#marca_site").val(data.marca),
+      $("#modelo_site").val(data.modelo),
+      $("#numero_serie_site").val(data.numero_serie),
+      $("#folio_site").val(data.folio),
+      $("#estatus_site").val(data.estatus),
+      $("#articulo_site").val(data.articulo),
+      $("#piezas_site").val(data.piezas);
   });
 };
-function fechaActual() {
-  var now = new Date();
-  var day = ("0" + now.getDate()).slice(-2);
-  var month = ("0" + (now.getMonth() + 1)).slice(-2);
-  var today = now.getFullYear() + "-" + month + "-" + day;
-  return today;
-}
-$("#home1").on("click", function () {
-  $("#contenido").load("/sistema_PIDS/php/home.html");
-});
-
-var refrescar = function () {
-  table.ajax.reload(); //Refrescamos la tabla
-};
-var idioma_espanol = {
-  sProcessing: "Procesando...",
-  sLengthMenu: "Registros por página _MENU_",
-  sZeroRecords: "No se encontraron resultados",
-  sEmptyTable: "Ningún dato disponible en esta tabla =(",
-  sInfo:
-    "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
-  sInfoEmpty: "Mostrando registros del 0 al 0 de un total de 0 registros",
-  sInfoFiltered: "(filtrado de un total de _MAX_ registros)",
-  sInfoPostFix: "",
-  sSearch: "",
-  sUrl: "",
-  sInfoThousands: ",",
-  sLoadingRecords: "Cargando...",
-  oPaginate: {
-    sFirst: `<i class="fas fa-fast-backward"></i>`,
-    sLast: `<i class="fas fa-fast-forward"></i>`,
-    sNext: `<i class="fas fa-forward"></i>`,
-    sPrevious: `<i class="fas fa-backward"></i>`,
-  },
-  oAria: {
-    sSortAscending: ": Activar para ordenar la columna de manera ascendente",
-    sSortDescending: ": Activar para ordenar la columna de manera descendente",
-  },
-  buttons: {
-    copy: "Copiar",
-    colvis: "Visibilidad",
-  },
-};
-
-var acordeon = function () {
-  $(".titulo-acordeon").on("click", function () {
-    var contenido = $(this).next(".contenido-acordeon");
-    if (contenido.css("display") == "none") {
-      //open
-      contenido.slideDown(250);
-      $(this).addClass("open");
-      refrescar();
+var prestamo_datos1 = function (tbody, table) {
+  var data = null;
+  $(tbody).on("click", "button.devolucionSite", function () {
+    if ($("table").hasClass("collapsed")) {
+      data = table.row($(this)).data();
     } else {
-      //close
-      contenido.slideUp(250);
-      $(this).removeClass("open");
+      data = table.row($(this).parents("tr")).data();
+    }
+    var fecha_Actual = fechaActual();
+    var hoy = new Date();
+    var horaActual =
+      hoy.getHours() + ":" + hoy.getMinutes() + ":" + hoy.getSeconds();
+    var fechaPrestamo = data.fecha_prestamo.split(" ")[0];
+    var fechaTotal = fechaActual() + " " + horaActual;
+    var datos;
+    // Checar si se devuelve el mismo día
+    if (fechaPrestamo === fecha_Actual) {
+      var horaPrestamo = new Date(data.fecha_prestamo);
+      var horaDevolucion = new Date(fechaTotal);
+      console.log(horaPrestamo);
+      console.log(horaDevolucion);
+      // Calculamos horas transcurridas
+      var minutosDiferencia = Math.round(
+        Math.abs((horaDevolucion - horaPrestamo) / 1000 / 60 / 60)
+      );
+      if (minutosDiferencia <= 4) {
+        datos = {
+          id: data.id,
+          devolucion: fechaTotal,
+          estatus: "Devuelto",
+          estadoDevolucion: "Devuelto a tiempo",
+        };
+      } else if (minutosDiferencia > 4 && minutosDiferencia <= 6) {
+        datos = {
+          id: data.id,
+          devolucion: fechaTotal,
+          estatus: "Devuelto",
+          estadoDevolucion: "Devuelto con tardanza",
+        };
+      } else {
+        datos = {
+          id: data.id,
+          devolucion: fechaTotal,
+          estatus: "Devuelto",
+          estadoDevolucion: "Devuelto con extrema tardanza",
+        };
+      }
+      fetch("php/site/modificar_prestamos_site.php", {
+        method: "POST",
+        body: JSON.stringify(datos),
+      })
+        .then((response) => response.text())
+        .then((data) => {
+          if (data === "Articulo Devuelto") {
+            mensajeAlertaSweet(
+              "Se realizó la devolución",
+              "El articulo ha sido devuelto con éxito",
+              "success"
+            );
+            table1.ajax.reload();
+          } else {
+            mensajeAlertaSweet(
+              "Ha ocurrido un error",
+              "Ocurrió un error al devolver el articulo",
+              "error"
+            );
+          }
+        });
+    } else {
+      datos = {
+        id: data.id,
+        devolucion: fechaTotal,
+        estatus: "Devuelto",
+        estadoDevolucion: "Devuelto con extrema tardanza",
+      };
+      fetch("php/site/modificar_prestamos_site.php", {
+        method: "POST",
+        body: JSON.stringify(datos),
+      })
+        .then((response) => response.text())
+        .then((data) => {
+          if (data === "Articulo Devuelto") {
+            mensajeAlertaSweet(
+              "Se realizó la devolución",
+              "El articulo ha sido devuelto con éxito",
+              "success"
+            );
+            table1.ajax.reload();
+          } else {
+            mensajeAlertaSweet(
+              "Ha ocurrido un error",
+              "Ocurrió un error al devolver el articulo",
+              "error"
+            );
+          }
+        });
     }
   });
 };
-
 /* Prestamos Control*/
 var contenedorMensajesPrestamosSite = document.getElementById(
   "mensajesPrestamosSite"
 );
+if (!document.getElementById("prestar")) {
+  alert("Ocurrio Un Error");
+}
 var btnPrestar = document.getElementById("prestar");
 btnPrestar.addEventListener("click", function () {
   prestarSiteArticulo();
 });
 
 function prestarSiteArticulo() {
+  var letterNumber = /^[a-zA-Z ]{3,150}$/;
   if (document.getElementById("tipoPrestario").checked == true) {
-    console.log("Si");
     if (
       $("#marca_site").val() === "" ||
       $("#numero_serie_site").val() === "" ||
@@ -258,22 +381,56 @@ function prestarSiteArticulo() {
       setTimeout(() => {
         $("#msgPrestamos").toggle(500);
       }, 3000);
+    } else if (!$("#alumno_prestamo").val().match(letterNumber)) {
+      if (document.getElementById("msgPrestamos")) {
+        document.getElementById("msgPrestamos").remove();
+      }
+      const div = document.createElement("div");
+      div.id = "msgPrestamos";
+      div.classList.add("badge", "badge-danger", "p-1", "mb-2");
+      div.innerText =
+        "Ingresa el nombre con el siguiente formato: Sólo Letras y más de 3 letras";
+      contenedorMensajesPrestamosSite.appendChild(div);
+      setTimeout(() => {
+        $("#msgPrestamos").toggle(500);
+      }, 3000);
     } else {
       // datos
       const marca = $("#marca_site").val(),
         numeroPiezas = $("#piezas_site").val(),
         numeroSerie = $("#numero_serie_site").val(),
-        nombreAlumno = $("#alumno_prestamo").val();
+        nombreAlumno = $("#alumno_prestamo").val().trim();
       var hoy = new Date();
       var hora =
         hoy.getHours() + ":" + hoy.getMinutes() + ":" + hoy.getSeconds();
-      console.log(
-        `Nombre:${nombreAlumno}\nCantidadPrestado:${numeroPiezas},Articulo:${marca}, Serie: ${numeroSerie}\nFecha:${fechaActual()} y Hora: ${hora}
-        `
-      );
+      const datos = {
+        tipo: "Docente",
+        nombre: nombreAlumno,
+        articulo: marca,
+        serie: numeroSerie,
+        cantidad: numeroPiezas,
+        fecha: fechaActual(),
+        hora: hora,
+      };
+      console.log(datos);
+      fetch("php/site/insertar_prestamos_site.php", {
+        method: "POST",
+        body: JSON.stringify(datos),
+      })
+        .then((response) => response.text())
+        .then((data) => {
+          console.log(data);
+          table1.ajax.reload();
+          mensajeAlertaSweet(
+            "Prestamo Realizado",
+            "El articulo se prestó",
+            "success"
+          );
+          table1.ajax.reload();
+          document.getElementById("form_prestamos_site").reset();
+        });
     }
   } else {
-    console.log("no");
     if (
       // $("#fecha_prestamo").val() === "" ||
       // $("#fecha_regreso").val() === "" ||
@@ -361,35 +518,137 @@ function prestarSiteArticulo() {
       setTimeout(() => {
         $("#msgPrestamos").toggle(500);
       }, 3000);
+    } else if (!$("#alumno_prestamo").val().match(letterNumber)) {
+      if (document.getElementById("msgPrestamos")) {
+        document.getElementById("msgPrestamos").remove();
+      }
+      const div = document.createElement("div");
+      div.id = "msgPrestamos";
+      div.classList.add("badge", "badge-danger", "p-1", "mb-2");
+      div.innerText =
+        "Ingresa el nombre con el siguiente formato: Sólo Letras y más de 3 letras";
+      contenedorMensajesPrestamosSite.appendChild(div);
+      setTimeout(() => {
+        $("#msgPrestamos").toggle(500);
+      }, 3000);
     } else {
       // datos
       const marca = $("#marca_site").val(),
         numeroPiezas = $("#piezas_site").val(),
         numeroSerie = $("#numero_serie_site").val(),
-        nombreAlumno = $("#alumno_prestamo").val(),
+        nombreAlumno = $("#alumno_prestamo").val().trim(),
         numeroControl = $("#Control_prestamo").val(),
         carreraAlumno = $("#Carrera_prestamo").val();
       var hoy = new Date();
       var hora =
         hoy.getHours() + ":" + hoy.getMinutes() + ":" + hoy.getSeconds();
       const datos = {
+        tipo: "Alumno",
         nombre: nombreAlumno,
         noControl: numeroControl,
         carrera: carreraAlumno,
-        cantidad: numeroPiezas,
         articulo: marca,
         serie: numeroSerie,
+        cantidad: numeroPiezas,
         fecha: fechaActual(),
         hora: hora,
       };
-      fetch("php/site/insertar_prestamos_site", {
+      console.log(datos);
+      fetch("php/site/insertar_prestamos_site.php", {
         method: "POST",
         body: JSON.stringify(datos),
       })
         .then((response) => response.text())
         .then((data) => {
-          console.log(data);
+          if (Number(data) === 1) {
+            mensajeAlertaSweet(
+              "Prestamo Realizado",
+              "El articulo se prestó",
+              "success"
+            );
+            table1.ajax.reload();
+            document.getElementById("form_prestamos_site").reset();
+          } else {
+            mensajeAlertaSweet(
+              "Ha ocurrido un error",
+              "Ocurrió un error al realizar el prestamo, intente de nuevo o recargue la página",
+              "error"
+            );
+            table1.ajax.reload();
+            document.getElementById("form_prestamos_site").reset();
+          }
         });
     }
   }
+}
+function fechaActual() {
+  var now = new Date();
+  var day = ("0" + now.getDate()).slice(-2);
+  var month = ("0" + (now.getMonth() + 1)).slice(-2);
+  var today = now.getFullYear() + "-" + month + "-" + day;
+  return today;
+}
+$("#home1").on("click", function () {
+  $("#contenido").load("/sistema_PIDS/php/home.html");
+});
+
+var refrescar = function () {
+  table.ajax.reload(); //Refrescamos la tabla
+  table1.ajax.reload(); //Refrescamos la tabla
+};
+var idioma_espanol = {
+  sProcessing: "Procesando...",
+  sLengthMenu: "Registros por página _MENU_",
+  sZeroRecords: "No se encontraron resultados",
+  sEmptyTable: "Ningún dato disponible en esta tabla =(",
+  sInfo:
+    "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+  sInfoEmpty: "Mostrando registros del 0 al 0 de un total de 0 registros",
+  sInfoFiltered: "(filtrado de un total de _MAX_ registros)",
+  sInfoPostFix: "",
+  sSearch: "",
+  sUrl: "",
+  sInfoThousands: ",",
+  sLoadingRecords: "Cargando...",
+  oPaginate: {
+    sFirst: `<i class="fas fa-fast-backward"></i>`,
+    sLast: `<i class="fas fa-fast-forward"></i>`,
+    sNext: `<i class="fas fa-forward"></i>`,
+    sPrevious: `<i class="fas fa-backward"></i>`,
+  },
+  oAria: {
+    sSortAscending: ": Activar para ordenar la columna de manera ascendente",
+    sSortDescending: ": Activar para ordenar la columna de manera descendente",
+  },
+  buttons: {
+    copy: "Copiar",
+    colvis: "Visibilidad",
+  },
+};
+
+var acordeon = function () {
+  $(".titulo-acordeon").on("click", function () {
+    var contenido = $(this).next(".contenido-acordeon");
+    if (contenido.css("display") == "none") {
+      //open
+      contenido.slideDown(250);
+      $(this).addClass("open");
+      refrescar();
+    } else {
+      //close
+      contenido.slideUp(250);
+      $(this).removeClass("open");
+    }
+  });
+};
+
+function mensajeAlertaSweet(titulo, mensaje, tipo) {
+  let swalWithBootstrapButtons = Swal.mixin({
+    customClass: {
+      confirmButton: "btn btn btn-light",
+      cancelButton: "btn btn-danger",
+    },
+    buttonsStyling: false,
+  });
+  swalWithBootstrapButtons.fire(titulo, mensaje, tipo);
 }

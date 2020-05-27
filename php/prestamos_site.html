@@ -8,22 +8,6 @@
   </div>
   <div class="prestamos-site-contenedor">
     <div class="vista2">
-      <div class="add-registro prestamo-width">
-        <div class="buscador">
-          <form>
-            <input
-              type="search"
-              id="search"
-              class="buscar"
-              placeholder="Buscador..."
-            />
-            <div class="hijo">
-              <p class="icono-input buscador-icon boton-transparente"></p>
-            </div>
-          </form>
-        </div>
-      </div>
-
       <div class="informacion-home prestamo-width">
         <div class="home-card tabla_general contenedor-acordeon">
           <div class="head-homecard titulo-acordeon">
@@ -31,6 +15,19 @@
             <span class="toggle-icon"></span>
           </div>
           <div class="body-tabla-general contenido-acordeon">
+            <div class="buscador">
+              <form>
+                <input
+                  type="search"
+                  id="search"
+                  class="buscar"
+                  placeholder="Buscar articulo"
+                />
+                <div class="hijo">
+                  <p class="icono-input buscador-icon boton-transparente"></p>
+                </div>
+              </form>
+            </div>
             <table
               id="tabla-prestamos-site"
               class="table dt-responsive nowrap"
@@ -61,6 +58,49 @@
             <span class="toggle-icon"></span>
           </div>
           <div class="body-tabla-general contenido-acordeon">
+            <div class="buscador">
+              <form>
+                <input
+                  type="search"
+                  id="search1"
+                  class="buscar"
+                  placeholder="Buscar Prestario"
+                />
+                <div class="hijo">
+                  <p class="icono-input buscador-icon boton-transparente"></p>
+                </div>
+              </form>
+            </div>
+
+            <div>
+              <i class="fas fa-filter mt-3"> Filtros</i>
+            </div>
+            <!-- class="d-flex justify-content-between btn-group btn-group-sm" -->
+            <div>
+              <div
+                class="btn-group btn-group-sm"
+                role="group"
+                aria-label="First group"
+              >
+                <button
+                  id="filtroPrestados"
+                  type="button"
+                  class="btn btn-primary"
+                >
+                  Prestados
+                </button>
+                <button
+                  id="filtroDevueltos"
+                  type="button"
+                  class="btn btn-primary"
+                >
+                  Devueltos
+                </button>
+                <button id="filtroTodos" type="button" class="btn btn-primary">
+                  Todos
+                </button>
+              </div>
+            </div>
             <table
               id="tabla-articulos-prestados"
               class="table dt-responsive nowrap"
@@ -68,15 +108,18 @@
             >
               <thead class="thead-dark">
                 <tr>
-                  <th scope="col">Fecha</th>
-                  <th scope="col">Marca</th>
-                  <th scope="col">Modelo</th>
-                  <th scope="col">Características</th>
-                  <th scope="col">Distintivo</th>
-                  <th scope="col">Estatus</th>
-                  <th scope="col">Articulo</th>
-                  <th scope="col">Piezas</th>
-                  <th scope="col">Acciones</th>
+                  <th scope="col">Tipo Prestario</th>
+                  <th scope="col">Nombre Prestario</th>
+                  <th scope="col">No.Control(Alumno)</th>
+                  <th scope="col">Carrera(Alumno)</th>
+                  <th scope="col">Articulo Prestado</th>
+                  <th scope="col">Numero Serie Articulo</th>
+                  <th scope="col">Cantidad</th>
+                  <th scope="col">Fecha y Hora del Prestamo</th>
+                  <th scope="col">Fecha y Hora de la Devolución</th>
+                  <th scope="col">Estatus Prestamo</th>
+                  <th scope="col">Tardanza en la Devolución</th>
+                  <th scope="col">Funciones</th>
                 </tr>
               </thead>
               <!-- <tbody id="datos-site"></tbody> -->
@@ -119,7 +162,7 @@
     </div>
     <!--fin vista2 -->
     <div id="vista1Prestamos" class="vista1">
-      <form id="form_inventario_site">
+      <form id="form_prestamos_site">
         <div class="contenedor">
           <h1>Información Del Prestamo</h1>
           <!-- Fechas -->
@@ -222,6 +265,8 @@
                 name="alumno_prestamo"
                 class="buscar margin-top-15"
                 placeholder="Nombre del Prestario"
+                pattern="[a-zA-Z]+"
+                oninvalid="setCustomValidity('Please enter on alphabets only.')"
               />
               <small>Nombre del Prestario</small>
               <div class="hijo-edit hijo-edit-prestamos">
