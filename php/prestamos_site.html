@@ -87,14 +87,14 @@
                   type="button"
                   class="btn btn-primary"
                 >
-                  Prestados
+                  Alumno
                 </button>
                 <button
                   id="filtroDevueltos"
                   type="button"
                   class="btn btn-primary"
                 >
-                  Devueltos
+                  Docente
                 </button>
                 <button id="filtroTodos" type="button" class="btn btn-primary">
                   Todos
@@ -108,10 +108,10 @@
             >
               <thead class="thead-dark">
                 <tr>
-                  <th scope="col">Tipo Prestario</th>
                   <th scope="col">Nombre Prestario</th>
                   <th scope="col">No.Control(Alumno)</th>
                   <th scope="col">Carrera(Alumno)</th>
+                  <th scope="col">Tipo Prestario</th>
                   <th scope="col">Articulo Prestado</th>
                   <th scope="col">Numero Serie Articulo</th>
                   <th scope="col">Cantidad</th>
@@ -130,26 +130,95 @@
         <!--Acordeon todavia falta modificar-->
         <div class="home-card tabla_general contenedor-acordeon">
           <div class="head-homecard titulo-acordeon">
-            <h1>Control de vales</h1>
+            <h1>Registro de articulos ya devueltos</h1>
             <span class="toggle-icon"></span>
           </div>
           <div class="body-tabla-general contenido-acordeon">
+            <!-- <div>
+              <div
+                class="btn-group btn-group-sm"
+                role="group"
+                aria-label="First group"
+              >
+                <button
+                  id="filtroaTiempo"
+                  type="button"
+                  class="btn btn-primary"
+                >
+                  Devueltos a tiempo
+                </button>
+                <button
+                  id="filtroConTardanza"
+                  type="button"
+                  class="btn btn-primary"
+                >
+                  Con tardanza
+                </button>
+                <button
+                  id="filtroMuyTarde"
+                  type="button"
+                  class="btn btn-primary"
+                >
+                  Con Extrema Tardanza
+                </button>
+                <button
+                  id="filtroTodosDevueltos"
+                  type="button"
+                  class="btn btn-primary"
+                >
+                  Todos
+                </button>
+              </div>
+            </div> -->
+            <div class="buscador">
+              <form>
+                <input
+                  type="search"
+                  id="search2"
+                  class="buscar"
+                  placeholder="Buscar devoluciones"
+                />
+                <div class="hijo">
+                  <p class="icono-input buscador-icon boton-transparente"></p>
+                </div>
+              </form>
+            </div>
+            <div>
+              <i class="fas fa-filter mt-3 mb-2"> Filtros</i>
+            </div>
+            <div id="filtroDevueltos">
+              <div class="dateDevolucion">
+                <small>Filtro por fecha</small>
+                <input type="date" name="FechaDevolucion" id="fechaDev" />
+              </div>
+              <div>
+                <button
+                  id="filtroTodosDevueltos"
+                  type="button"
+                  class="btn btn-primary"
+                >
+                  Todos
+                </button>
+              </div>
+            </div>
             <table
-              id="tabla-vales"
+              id="tabla-devoluciones"
               class="table dt-responsive nowrap"
               style="width: 100%;"
             >
               <thead class="thead-dark">
                 <tr>
-                  <th scope="col">Fecha</th>
-                  <th scope="col">Marca</th>
-                  <th scope="col">Modelo</th>
-                  <th scope="col">Características</th>
-                  <th scope="col">Distintivo</th>
-                  <th scope="col">Estatus</th>
-                  <th scope="col">Articulo</th>
-                  <th scope="col">Piezas</th>
-                  <th scope="col">Acciones</th>
+                  <th scope="col">Tipo Prestario</th>
+                  <th scope="col">Nombre Prestario</th>
+                  <th scope="col">No.Control(Alumno)</th>
+                  <th scope="col">Carrera(Alumno)</th>
+                  <th scope="col">Articulo Prestado</th>
+                  <th scope="col">Numero Serie Articulo</th>
+                  <th scope="col">Cantidad</th>
+                  <th scope="col">Fecha y Hora del Prestamo</th>
+                  <th scope="col">Fecha y Hora de la Devolución</th>
+                  <th scope="col">Estatus Prestamo</th>
+                  <th scope="col">Tardanza en la Devolución</th>
                 </tr>
               </thead>
               <!-- <tbody id="datos-site"></tbody> -->

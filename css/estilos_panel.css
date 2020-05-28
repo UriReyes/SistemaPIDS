@@ -1675,7 +1675,7 @@ span.toggle-icon:hover {
   width: 4rem;
   height: 1.6rem;
   left: 0;
-  background-color: rgba(255, 0, 0, 0.68);
+  background-color: rgba(0, 0, 0, 0.671);
   border-radius: 1.6rem;
   transition: all 0.3s;
 }
@@ -1686,7 +1686,8 @@ span.toggle-icon:hover {
   width: 1.4rem;
   height: 1.4rem;
   border-radius: 1.4rem;
-  background-color: white;
+  background-color: rgb(255, 255, 255);
+  border: solid 1px black;
   top: 1px;
   left: 1px;
   transition: all 0.3s;
@@ -1699,10 +1700,48 @@ input[type="checkbox"]:checked + .switch:after {
 }
 
 input[type="checkbox"]:checked + .switch {
-  background-color: #47b365de;
+  background-color: #ffffff;
+  border: solid 1px black;
 }
 
 .remove-from-screen {
   position: absolute;
   left: -9999px;
+}
+
+/* .badge {
+  display: inline-block;
+} */
+
+div#filtroDevueltos {
+  align-items: center;
+  display: flex;
+}
+button#filtroTodosDevueltos,
+button#filtroPrestados,
+button#filtroDevueltos,
+button#filtroTodos {
+  font-size: small;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  margin-left: 15px;
+  background-color: white;
+  color: #000000;
+  border: solid 1px black;
+  margin-top: 17px;
+}
+button#filtroTodosDevueltos:hover,
+button#filtroPrestados:hover,
+button#filtroDevueltos:hover,
+button#filtroTodos:hover {
+  background-color: rgba(0, 0, 0, 0.733);
+  color: white;
+  transition: 0.5s;
+}
+span#tipoLabel2 {
+  color: #0c5dd4;
+}
+
+.dateDevolucion {
+  display: grid;
 }

@@ -4,6 +4,7 @@ $(document).ready(function () {
   acordeon();
   mostrar_datos();
   mostrar_prestamos();
+  mostrar_devoluciones();
   document.getElementById("contenedorGlobal").onscroll = function () {
     myFunction();
   };
@@ -76,7 +77,8 @@ $(document).ready(function () {
 });
 
 var table = null,
-  table1 = null;
+  table1 = null,
+  table2 = null;
 var editar = false;
 var mostrar_datos = function () {
   table = $("#tabla-prestamos-site").DataTable({
@@ -130,17 +132,41 @@ var mostrar_prestamos = function () {
       url: "php/site/mostrar-prestamos-site.php",
     },
     columns: [
-      { data: "tipo" },
       {
         data: "nombre_prestario",
       },
-      { data: "no_control" },
-      { data: "carrera" },
+      {
+        render: function (data, type, JsonResultRow, meta) {
+          if (JsonResultRow.no_control === null) {
+            return `<span class="badge badge-secondary">Sin No. Control</span>`;
+          } else {
+            return `<span class="badge badge-secondary">${JsonResultRow.no_control}</span>`;
+          }
+        },
+      },
+      {
+        render: function (data, type, JsonResultRow, meta) {
+          if (JsonResultRow.carrera === null) {
+            return `<p>Sin Carrera</p>`;
+          } else {
+            return `<p>${JsonResultRow.carrera}</p>`;
+          }
+        },
+      },
+      { data: "tipo" },
       { data: "articulo" },
       { data: "serie" },
       { data: "cantidad" },
       { data: "fecha_prestamo" },
-      { data: "fecha_regreso" },
+      {
+        render: function (data, type, JsonResultRow, meta) {
+          if (JsonResultRow.fecha_regreso === null) {
+            return `<span class="badge badge-warning">Sin Fecha de devolución</span>`;
+          } else {
+            return `<span class="badge badge-warning">${JsonResultRow.fecha_regreso}</span>`;
+          }
+        },
+      },
       {
         render: function (data, type, JsonResultRow, meta) {
           if (JsonResultRow.estatus === "Prestado") {
@@ -165,7 +191,7 @@ var mostrar_prestamos = function () {
       },
       {
         defaultContent:
-          "<div class='boton-acciones' style='width:50%'><button class='devolucionSite editar-site boton-prestar2'>Devolver</button><button class='devolucionSite editar-site boton-prestar2'>Imprimir Vale</button></div>",
+          "<div class='boton-acciones' style='width:50%'><button class='devolucionSite editar-site boton-prestar2'>Devolver</button><button class='valeSite editar-site boton-prestar2'>Imprimir Vale</button></div>",
       },
     ],
     iDisplayLength: 5,
@@ -186,13 +212,103 @@ var mostrar_prestamos = function () {
   }); // Eliminar evento Press Enter
   prestamo_datos1("#tabla-articulos-prestados", table1);
   $("#filtroPrestados").on("click", function () {
-    table1.search("Prestado").draw();
+    table1.search("Alumno").draw();
   });
   $("#filtroDevueltos").on("click", function () {
-    table1.search("Devuelto").draw();
+    table1.search("Docente").draw();
   });
   $("#filtroTodos").on("click", function () {
     table1.search("").draw();
+  });
+};
+var mostrar_devoluciones = function () {
+  table2 = $("#tabla-devoluciones").DataTable({
+    destroy: true, //sirve para reinicializar el datatable al insertar datos
+    ajax: {
+      type: "POST",
+      url: "php/site/mostrar-devoluciones-site.php",
+    },
+    columns: [
+      { data: "tipo" },
+      {
+        data: "nombre_prestario",
+      },
+      {
+        render: function (data, type, JsonResultRow, meta) {
+          if (JsonResultRow.no_control === null) {
+            return `<span class="badge badge-secondary">Sin No. Control</span>`;
+          } else {
+            return `<span class="badge badge-secondary">${JsonResultRow.no_control}</span>`;
+          }
+        },
+      },
+      {
+        render: function (data, type, JsonResultRow, meta) {
+          if (JsonResultRow.carrera === null) {
+            return `<p>Sin Carrera</p>`;
+          } else {
+            return `<p>${JsonResultRow.carrera}</p>`;
+          }
+        },
+      },
+      { data: "articulo" },
+      { data: "serie" },
+      { data: "cantidad" },
+      { data: "fecha_prestamo" },
+      {
+        render: function (data, type, JsonResultRow, meta) {
+          if (JsonResultRow.fecha_regreso === null) {
+            return `<span class="badge badge-warning">Sin Fecha de devolución</span>`;
+          } else {
+            return `<span class="badge badge-warning">${JsonResultRow.fecha_regreso}</span>`;
+          }
+        },
+      },
+      {
+        render: function (data, type, JsonResultRow, meta) {
+          if (JsonResultRow.estatus === "Prestado") {
+            return `<span class="badge badge-danger">${JsonResultRow.estatus}</span>`;
+          } else {
+            return `<span class="badge badge-success">${JsonResultRow.estatus}</span>`;
+          }
+        },
+      },
+      {
+        render: function (data, type, JsonResultRow, meta) {
+          if (JsonResultRow.estado_regreso === "Sin devolucion") {
+            return `<span class="badge badge-primary">${JsonResultRow.estado_regreso}</span>`;
+          } else if (JsonResultRow.estado_regreso === "Devuelto a tiempo") {
+            return `<span class="badge badge-success">${JsonResultRow.estado_regreso}</span>`;
+          } else if (JsonResultRow.estado_regreso === "Con tardanza") {
+            return `<span class="badge badge-warning">${JsonResultRow.estado_regreso}</span>`;
+          } else {
+            return `<span class="badge badge-danger">${JsonResultRow.estado_regreso}</span>`;
+          }
+        },
+      },
+    ],
+    iDisplayLength: 5,
+    aLengthMenu: [
+      [5, 10, 25, 50, 100, -1],
+      [5, 10, 25, 50, 100, "All"],
+    ],
+    language: idioma_espanol,
+  });
+  $("#search2").on("keyup", function () {
+    table2.search(this.value).draw();
+  });
+  $("#search2").keypress(function (e) {
+    var keycode = e.keyCode;
+    if (keycode == "13") {
+      e.preventDefault();
+    }
+  });
+  $("#fechaDev").on("change", function () {
+    table2.search($("#fechaDev").val()).draw();
+  });
+  $("#filtroTodosDevueltos").on("click", function () {
+    $("#fechaDev").val(null);
+    table2.search("").draw();
   });
 };
 
@@ -215,106 +331,142 @@ var prestamo_datos = function (tbody, table) {
       $("#folio_site").val(data.folio),
       $("#estatus_site").val(data.estatus),
       $("#articulo_site").val(data.articulo),
-      $("#piezas_site").val(data.piezas);
+      $("#piezas_site").val(1);
   });
 };
-var prestamo_datos1 = function (tbody, table) {
+var prestamo_datos1 = function (tbody, tabla) {
   var data = null;
+  let swalWithBootstrapButtons = Swal.mixin({
+    customClass: {
+      confirmButton: "btn btn-light",
+      cancelButton: "btn btn-danger",
+    },
+    buttonsStyling: false,
+  });
   $(tbody).on("click", "button.devolucionSite", function () {
     if ($("table").hasClass("collapsed")) {
-      data = table.row($(this)).data();
+      data = tabla.row($(this)).data();
     } else {
-      data = table.row($(this).parents("tr")).data();
+      data = tabla.row($(this).parents("tr")).data();
     }
-    var fecha_Actual = fechaActual();
-    var hoy = new Date();
-    var horaActual =
-      hoy.getHours() + ":" + hoy.getMinutes() + ":" + hoy.getSeconds();
-    var fechaPrestamo = data.fecha_prestamo.split(" ")[0];
-    var fechaTotal = fechaActual() + " " + horaActual;
-    var datos;
-    // Checar si se devuelve el mismo día
-    if (fechaPrestamo === fecha_Actual) {
-      var horaPrestamo = new Date(data.fecha_prestamo);
-      var horaDevolucion = new Date(fechaTotal);
-      console.log(horaPrestamo);
-      console.log(horaDevolucion);
-      // Calculamos horas transcurridas
-      var minutosDiferencia = Math.round(
-        Math.abs((horaDevolucion - horaPrestamo) / 1000 / 60 / 60)
-      );
-      if (minutosDiferencia <= 4) {
-        datos = {
-          id: data.id,
-          devolucion: fechaTotal,
-          estatus: "Devuelto",
-          estadoDevolucion: "Devuelto a tiempo",
-        };
-      } else if (minutosDiferencia > 4 && minutosDiferencia <= 6) {
-        datos = {
-          id: data.id,
-          devolucion: fechaTotal,
-          estatus: "Devuelto",
-          estadoDevolucion: "Devuelto con tardanza",
-        };
-      } else {
-        datos = {
-          id: data.id,
-          devolucion: fechaTotal,
-          estatus: "Devuelto",
-          estadoDevolucion: "Devuelto con extrema tardanza",
-        };
-      }
-      fetch("php/site/modificar_prestamos_site.php", {
-        method: "POST",
-        body: JSON.stringify(datos),
+    swalWithBootstrapButtons
+      .fire({
+        title: "Confirmación",
+        text: "El articulo será devuelto",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Sí",
+        cancelButtonText: "No",
       })
-        .then((response) => response.text())
-        .then((data) => {
-          if (data === "Articulo Devuelto") {
-            mensajeAlertaSweet(
-              "Se realizó la devolución",
-              "El articulo ha sido devuelto con éxito",
-              "success"
+      .then((result) => {
+        if (result.value) {
+          var fecha_Actual = fechaActual();
+          var hoy = new Date();
+          var horaActual =
+            hoy.getHours() + ":" + hoy.getMinutes() + ":" + hoy.getSeconds();
+          var fechaPrestamo = data.fecha_prestamo.split(" ")[0];
+          var fechaTotal = fechaActual() + " " + horaActual;
+          var datos;
+          // Checar si se devuelve el mismo día
+          if (fechaPrestamo === fecha_Actual) {
+            var horaPrestamo = new Date(data.fecha_prestamo);
+            var horaDevolucion = new Date(fechaTotal);
+            console.log(horaPrestamo);
+            console.log(horaDevolucion);
+            // Calculamos horas transcurridas
+            var minutosDiferencia = Math.round(
+              Math.abs((horaDevolucion - horaPrestamo) / 1000 / 60 / 60)
             );
-            table1.ajax.reload();
+            if (minutosDiferencia <= 4) {
+              datos = {
+                id: data.id,
+                devolucion: fechaTotal,
+                estatus: "Devuelto",
+                estadoDevolucion: "Devuelto a tiempo",
+              };
+            } else if (minutosDiferencia > 4 && minutosDiferencia <= 6) {
+              datos = {
+                id: data.id,
+                devolucion: fechaTotal,
+                estatus: "Devuelto",
+                estadoDevolucion: "Devuelto con tardanza",
+              };
+            } else {
+              datos = {
+                id: data.id,
+                devolucion: fechaTotal,
+                estatus: "Devuelto",
+                estadoDevolucion: "Devuelto con extrema tardanza",
+              };
+            }
+            fetch("php/site/modificar_prestamos_site.php", {
+              method: "POST",
+              body: JSON.stringify(datos),
+            })
+              .then((response) => response.text())
+              .then((data) => {
+                if (data === "Articulo Devuelto") {
+                  mensajeAlertaSweet(
+                    "Se realizó la devolución",
+                    "El articulo ha sido devuelto con éxito",
+                    "success"
+                  );
+                  table1.ajax.reload();
+                } else {
+                  mensajeAlertaSweet(
+                    "Ha ocurrido un error",
+                    "Ocurrió un error al devolver el articulo",
+                    "error"
+                  );
+                }
+              });
           } else {
-            mensajeAlertaSweet(
-              "Ha ocurrido un error",
-              "Ocurrió un error al devolver el articulo",
-              "error"
-            );
+            datos = {
+              id: data.id,
+              devolucion: fechaTotal,
+              estatus: "Devuelto",
+              estadoDevolucion: "Devuelto con extrema tardanza",
+            };
+            fetch("php/site/modificar_prestamos_site.php", {
+              method: "POST",
+              body: JSON.stringify(datos),
+            })
+              .then((response) => response.text())
+              .then((data) => {
+                if (data === "Articulo Devuelto") {
+                  mensajeAlertaSweet(
+                    "Se realizó la devolución",
+                    "El articulo ha sido devuelto con éxito",
+                    "success"
+                  );
+                  table1.ajax.reload();
+                } else {
+                  mensajeAlertaSweet(
+                    "Ha ocurrido un error",
+                    "Ocurrió un error al devolver el articulo",
+                    "error"
+                  );
+                }
+              });
           }
-        });
-    } else {
-      datos = {
-        id: data.id,
-        devolucion: fechaTotal,
-        estatus: "Devuelto",
-        estadoDevolucion: "Devuelto con extrema tardanza",
-      };
-      fetch("php/site/modificar_prestamos_site.php", {
-        method: "POST",
-        body: JSON.stringify(datos),
+        }
+      });
+  });
+  $(tbody).on("click", "button.valeSite", function () {
+    swalWithBootstrapButtons
+      .fire({
+        title: "Confirmación",
+        text: "Desea Imprimír el vale",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Sí",
+        cancelButtonText: "No",
       })
-        .then((response) => response.text())
-        .then((data) => {
-          if (data === "Articulo Devuelto") {
-            mensajeAlertaSweet(
-              "Se realizó la devolución",
-              "El articulo ha sido devuelto con éxito",
-              "success"
-            );
-            table1.ajax.reload();
-          } else {
-            mensajeAlertaSweet(
-              "Ha ocurrido un error",
-              "Ocurrió un error al devolver el articulo",
-              "error"
-            );
-          }
-        });
-    }
+      .then((result) => {
+        if (result.value) {
+          alert("Imprimiendo");
+        }
+      });
   });
 };
 /* Prestamos Control*/
@@ -419,15 +571,24 @@ function prestarSiteArticulo() {
       })
         .then((response) => response.text())
         .then((data) => {
-          console.log(data);
-          table1.ajax.reload();
-          mensajeAlertaSweet(
-            "Prestamo Realizado",
-            "El articulo se prestó",
-            "success"
-          );
-          table1.ajax.reload();
-          document.getElementById("form_prestamos_site").reset();
+          if (Number(data) === 1) {
+            console.log(`Imprimiendo vale con los siguientes datos: ${datos}`);
+            mensajeAlertaSweet(
+              "Prestamo Realizado",
+              "El articulo se prestó",
+              "success"
+            );
+            table1.ajax.reload();
+            document.getElementById("form_prestamos_site").reset();
+          } else {
+            mensajeAlertaSweet(
+              "Ha ocurrido un error",
+              "Ocurrió un error al realizar el prestamo, intente de nuevo o recargue la página",
+              "error"
+            );
+            table1.ajax.reload();
+            document.getElementById("form_prestamos_site").reset();
+          }
         });
     }
   } else {
@@ -553,7 +714,7 @@ function prestarSiteArticulo() {
         fecha: fechaActual(),
         hora: hora,
       };
-      console.log(datos);
+
       fetch("php/site/insertar_prestamos_site.php", {
         method: "POST",
         body: JSON.stringify(datos),
@@ -561,6 +722,7 @@ function prestarSiteArticulo() {
         .then((response) => response.text())
         .then((data) => {
           if (Number(data) === 1) {
+            console.log(`Imprimiendo vale con los siguientes datos: ${datos}`);
             mensajeAlertaSweet(
               "Prestamo Realizado",
               "El articulo se prestó",
@@ -595,6 +757,7 @@ $("#home1").on("click", function () {
 var refrescar = function () {
   table.ajax.reload(); //Refrescamos la tabla
   table1.ajax.reload(); //Refrescamos la tabla
+  table2.ajax.reload(); //Refrescamos la tabla
 };
 var idioma_espanol = {
   sProcessing: "Procesando...",

@@ -1,6 +1,6 @@
 <?php
 include('../conexion.php');
-$query = "SELECT * FROM prestamo_site WHERE estatus = 'Prestado'";
+$query = "SELECT * FROM prestamo_site WHERE estatus = 'Devuelto'";
 $result = mysqli_query($conexion, $query);
 if (!$result) {
     die('Consulta Fallida' . $conexion->connect_error);
