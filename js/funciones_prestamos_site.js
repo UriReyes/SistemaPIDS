@@ -464,7 +464,19 @@ var prestamo_datos1 = function (tbody, tabla) {
       })
       .then((result) => {
         if (result.value) {
-          alert("Imprimiendo");
+          if ($("table").hasClass("collapsed")) {
+            console.log("Si");
+            data = table1.row($(this)).data();
+          } else {
+            console.log("No");
+            data = table1.row($(this).parents("tr")).data();
+          }
+          generarVale(
+            data,
+            "php/vales_reportes/generarVale2.php",
+            "Imprimir Vale"
+          );
+          $("#modalEsperaPDF").modal("show");
         }
       });
   });
@@ -572,12 +584,12 @@ function prestarSiteArticulo() {
         .then((response) => response.text())
         .then((data) => {
           if (Number(data) === 1) {
-            console.log(`Imprimiendo vale con los siguientes datos: ${datos}`);
-            mensajeAlertaSweet(
-              "Prestamo Realizado",
-              "El articulo se prestó",
-              "success"
+            generarVale(
+              datos,
+              "php/vales_reportes/generarVale.php",
+              "Prestamo Realizado con éxito"
             );
+            $("#modalEsperaPDF").modal("show");
             table1.ajax.reload();
             document.getElementById("form_prestamos_site").reset();
           } else {
@@ -722,12 +734,12 @@ function prestarSiteArticulo() {
         .then((response) => response.text())
         .then((data) => {
           if (Number(data) === 1) {
-            console.log(`Imprimiendo vale con los siguientes datos: ${datos}`);
-            mensajeAlertaSweet(
-              "Prestamo Realizado",
-              "El articulo se prestó",
-              "success"
+            generarVale(
+              datos,
+              "php/vales_reportes/generarVale.php",
+              "Prestamo Realizado con éxito"
             );
+            $("#modalEsperaPDF").modal("show");
             table1.ajax.reload();
             document.getElementById("form_prestamos_site").reset();
           } else {
@@ -743,6 +755,29 @@ function prestarSiteArticulo() {
     }
   }
 }
+
+function generarVale(datos, url, mensaje) {
+  document.getElementById("tituloModalPrestamos").innerText = mensaje;
+  fetch(url, {
+    method: "POST",
+    body: JSON.stringify(datos),
+  })
+    .then((response) => response.blob())
+    .then((data) => {
+      $("#modalEsperaPDF").modal("hide");
+      var file = new Blob([data], { type: "application/pdf" });
+      var fileURL = URL.createObjectURL(file);
+      window.open(fileURL);
+      // var fileLink = document.createElement("a");
+      // fileLink.href = fileURL;
+
+      // // it forces the name of the downloaded file
+      // fileLink.download = "vales.pdf";
+      // // triggers the click event
+      // fileLink.click();
+    });
+}
+
 function fechaActual() {
   var now = new Date();
   var day = ("0" + now.getDate()).slice(-2);
