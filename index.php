@@ -47,7 +47,8 @@ if (isset($_SESSION['usuario'])) {
                         <input class="input" type="password" name="password" id="password" />
                     </div>
                 </div>
-                <a href="">Olvidó su contraseña</a>
+                <a id="recuperarPassword" href="php/usuarios/recuperarPassword.html" target="_blank">Olvidó su
+                    contraseña</a>
                 <div id="errores-login" class="errores-login">
                     <p id="error-login"></p>
                     <a id="cerrar-error" href="">X</a>

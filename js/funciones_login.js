@@ -68,6 +68,86 @@ $(document).ready(function () {
   //     });
   //   }
   // });
+
+  //Recuperar Contraseña
+  $("#formRecuperarPass").submit(function (e) {
+    e.preventDefault();
+    if ($("#newPassword").val() !== "" && $("#repitePassword").val() !== "") {
+      /// Llenar ambos campos
+      if ($("#newPassword").val() === $("#repitePassword").val()) {
+        const datos = {
+          correo: $("#correoDB").val(),
+          password: $("#newPassword").val(),
+        };
+        $.post("recuperarPasswordCorreo.php", datos, function (data) {
+          if (data === "1") {
+            const contenedor = document.getElementById("errores-recuperar");
+            if (document.getElementById("msgError")) {
+              document.getElementById("msgError").remove();
+            }
+            const span = document.createElement("span");
+            span.id = "msgError";
+            span.classList.add("badge");
+            span.classList.add("badge-success");
+            span.innerText = "Contraseña actualizada";
+            contenedor.appendChild(span);
+            setTimeout(function () {
+              //Creamos una Funcion que pasando 2Segundos Cierra los errores
+              document.getElementById("msgError").remove();
+            }, 3000);
+            setTimeout(() => {
+              window.close();
+            }, 3000);
+          } else {
+            const contenedor = document.getElementById("errores-recuperar");
+            if (document.getElementById("msgError")) {
+              document.getElementById("msgError").remove();
+            }
+            const span = document.createElement("span");
+            span.id = "msgError";
+            span.classList.add("badge");
+            span.classList.add("badge-danger");
+            span.innerText = data;
+            contenedor.appendChild(span);
+            setTimeout(function () {
+              //Creamos una Funcion que pasando 2Segundos Cierra los errores
+              document.getElementById("msgError").remove();
+            }, 3000);
+          }
+        });
+      } else {
+        const contenedor = document.getElementById("errores-recuperar");
+        if (document.getElementById("msgError")) {
+          document.getElementById("msgError").remove();
+        }
+        const span = document.createElement("span");
+        span.id = "msgError";
+        span.classList.add("badge");
+        span.classList.add("badge-danger");
+        span.innerText = "Las contraseñas no son las mismas";
+        contenedor.appendChild(span);
+        setTimeout(function () {
+          //Creamos una Funcion que pasando 2Segundos Cierra los errores
+          document.getElementById("msgError").remove();
+        }, 3000);
+      }
+    } else {
+      const contenedor = document.getElementById("errores-recuperar");
+      if (document.getElementById("msgError")) {
+        document.getElementById("msgError").remove();
+      }
+      const span = document.createElement("span");
+      span.id = "msgError";
+      span.classList.add("badge");
+      span.classList.add("badge-danger");
+      span.innerText = "Debes llenar todos los campos que se requieren";
+      contenedor.appendChild(span);
+      setTimeout(function () {
+        //Creamos una Funcion que pasando 2Segundos Cierra los errores
+        document.getElementById("msgError").remove();
+      }, 3000);
+    }
+  });
 });
 
 const inputs = document.querySelectorAll("input");
