@@ -79,52 +79,50 @@ if (!isset($_SESSION['usuario'])) {
                                 </li>
                             </svg>
                         </div>
-                        <?php if ($_SESSION['privilegios'] == "administrador") {
-                            echo <<< SITE
-                            <li class="sidebar-dropdown">
-                                <!--La clase sirve para utilizar un DropMenu-->
-                                <a id="site" href="#">
+                        <?php if ($_SESSION['privilegios'] == "administrador") : ?>
+                        <li class="sidebar-dropdown">
+                            <!--La clase sirve para utilizar un DropMenu-->
+                            <a id="site" href="#">
                                 <i class="fas fa-desktop"></i>
                                 <span>Site</span>
-                                </a>
-                                <div class="sidebar-submenu">
+                            </a>
+                            <div class="sidebar-submenu">
                                 <ul>
-                                <div class="svg-wrapper compact-wraper">
-                                <svg height="35" width="248">
-                                <rect class="shape1" height="35" width="248" />
-                                <rect class="shape2" height="35" width="248" />
-                                <li class="item compact-text">
-                                <a id="inventario_site" href="#">Inventario</a>
-                                </li>
-                                </svg>
-                                </div>
-                                <div class="svg-wrapper compact-wraper" compact-wraper>
-                                <svg height="35" width="248">
-                                <rect class="shape1" height="35" width="248" />
-                                <rect class="shape2" height="35" width="248" />
-                                <li class="item compact-text">
-                                <a id="bajas_site" href="#">Bajas de Inventario</a>
-                                </li>
-                                </svg>
-                                </div>
-                                <div class="svg-wrapper compact-wraper" compact-wraper>
-                                <svg height="35" width="248">
-                                <rect class="shape1" height="35" width="248" />
-                                <rect class="shape2" height="35" width="248" />
-                                <li class="item compact-text">
-                                <a id="prestamos_site" href="#">Préstamos</a>
-                                </li>
-                                </svg>
-                                </div>
+                                    <div class="svg-wrapper compact-wraper">
+                                        <svg height="35" width="248">
+                                            <rect class="shape1" height="35" width="248" />
+                                            <rect class="shape2" height="35" width="248" />
+                                            <li class="item compact-text">
+                                                <a id="inventario_site" href="#">Inventario</a>
+                                            </li>
+                                        </svg>
+                                    </div>
+                                    <div class="svg-wrapper compact-wraper" compact-wraper>
+                                        <svg height="35" width="248">
+                                            <rect class="shape1" height="35" width="248" />
+                                            <rect class="shape2" height="35" width="248" />
+                                            <li class="item compact-text">
+                                                <a id="bajas_site" href="#">Bajas de Inventario</a>
+                                            </li>
+                                        </svg>
+                                    </div>
+                                    <div class="svg-wrapper compact-wraper" compact-wraper>
+                                        <svg height="35" width="248">
+                                            <rect class="shape1" height="35" width="248" />
+                                            <rect class="shape2" height="35" width="248" />
+                                            <li class="item compact-text">
+                                                <a id="prestamos_site" href="#">Préstamos</a>
+                                            </li>
+                                        </svg>
+                                    </div>
                                 </ul>
-                                </div>
-                            </li>;
-                            SITE;
-                        } ?>
+                            </div>
+                        </li>
+                        <?php endif; ?>
                         <!-- Fin Site -->
-                        <?php if ($_SESSION['privilegios'] == "administrador") {
-                            echo <<< LAB
-                            <li class="sidebar-dropdown">
+                        <?php
+                        if ($_SESSION['privilegios'] == "administrador") : ?>
+                        <li class="sidebar-dropdown">
                             <a id="laboratorio" href="#">
                                 <i class="far fa-building"></i>
                                 <span>Laboratorio</span>
@@ -161,8 +159,7 @@ if (!isset($_SESSION['usuario'])) {
                                 </ul>
                             </div>
                         </li>
-                        LAB;
-                        } ?>
+                        <?php endif; ?>
                         <!--Laboratorios-->
                         <li class="sidebar-dropdown">
                             <a id="reportes" href="#">
@@ -193,22 +190,20 @@ if (!isset($_SESSION['usuario'])) {
                         <li class="header-menu">
                             <span>Extra</span>
                         </li>
-                        <?php if ($_SESSION['privilegios'] == "administrador") {
-                            echo <<< USERS
-                            <div class="svg-wrapper">
-                                <svg height="60" width="248">
-                                    <rect class="shape1" height="60" width="248" />
-                                    <rect class="shape2" height="60" width="248" />
-                                    <li class="item text">
-                                        <a id="administrar_usuarios" href="#">
-                                            <i class="fa fa-user"></i>
-                                            <span>Administrar Usuarios</span>
-                                        </a>
-                                    </li>
-                                </svg>
-                            </div>
-                         USERS;
-                        } ?>
+                        <?php if ($_SESSION['privilegios'] == "administrador") : ?>
+                        <div class="svg-wrapper">
+                            <svg height="60" width="248">
+                                <rect class="shape1" height="60" width="248" />
+                                <rect class="shape2" height="60" width="248" />
+                                <li class="item text">
+                                    <a id="administrar_usuarios" href="#">
+                                        <i class="fa fa-user"></i>
+                                        <span>Administrar Usuarios</span>
+                                    </a>
+                                </li>
+                            </svg>
+                        </div>
+                        <?php endif; ?>
                         <!--Fin Administrar Usuarios-->
                         <div class="svg-wrapper">
                             <svg height="60" width="248">
