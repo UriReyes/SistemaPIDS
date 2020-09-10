@@ -35,8 +35,9 @@ if (!isset($_SESSION['usuario'])) {
         </a>
         <nav id="sidebar" class="sidebar-wrapper">
             <div class="sidebar-content">
-                <div class="sidebar-brand">
-                    <a href="#"><i class="fas fa-code"></i>Sistema <span>PIDS</span></a>
+                <div class="sidebar-brand display_flex">
+                    <h3 class="nombre_sistema"><i class="fas fa-code"></i> Control de <strong>Prestamos e
+                            Inventarios</strong></h3>
                     <div id="close-sidebar">
                         <i class="fas fa-times"></i>
                     </div>
@@ -54,8 +55,8 @@ if (!isset($_SESSION['usuario'])) {
                             <span id="privilegios-sesion" class="user-role"><b>Tipo: </b>
                                 <?php echo ($_SESSION['privilegios']); ?></span>
                             <!-- <span class="user-status"><i
-                                    class="fa fa-circle"></i><span><?php //echo ($_SESSION['estado']); 
-                                                                    ?></span></span> -->
+                                    class="fa fa-circle"></i><span><?php //echo ($_SESSION['estado']);
+?></span></span> -->
                             <span class=""><i class="fas fa-graduation-cap"></i> <span> Departamento De
                                     Sistemas</span></span>
                         </div>
@@ -79,7 +80,7 @@ if (!isset($_SESSION['usuario'])) {
                                 </li>
                             </svg>
                         </div>
-                        <?php if ($_SESSION['privilegios'] == "administrador") : ?>
+                        <?php if ($_SESSION['privilegios'] == "administrador"): ?>
                         <li class="sidebar-dropdown">
                             <!--La clase sirve para utilizar un DropMenu-->
                             <a id="site" href="#">
@@ -118,10 +119,10 @@ if (!isset($_SESSION['usuario'])) {
                                 </ul>
                             </div>
                         </li>
-                        <?php endif; ?>
+                        <?php endif;?>
                         <!-- Fin Site -->
                         <?php
-                        if ($_SESSION['privilegios'] == "administrador") : ?>
+if ($_SESSION['privilegios'] == "administrador"): ?>
                         <li class="sidebar-dropdown">
                             <a id="laboratorio" href="#">
                                 <i class="far fa-building"></i>
@@ -159,7 +160,7 @@ if (!isset($_SESSION['usuario'])) {
                                 </ul>
                             </div>
                         </li>
-                        <?php endif; ?>
+                        <?php endif;?>
                         <!--Laboratorios-->
                         <li class="sidebar-dropdown">
                             <a id="reportes" href="#">
@@ -190,7 +191,7 @@ if (!isset($_SESSION['usuario'])) {
                         <li class="header-menu">
                             <span>Extra</span>
                         </li>
-                        <?php if ($_SESSION['privilegios'] == "administrador") : ?>
+                        <?php if ($_SESSION['privilegios'] == "administrador"): ?>
                         <div class="svg-wrapper">
                             <svg height="60" width="248">
                                 <rect class="shape1" height="60" width="248" />
@@ -203,7 +204,7 @@ if (!isset($_SESSION['usuario'])) {
                                 </li>
                             </svg>
                         </div>
-                        <?php endif; ?>
+                        <?php endif;?>
                         <!--Fin Administrar Usuarios-->
                         <div class="svg-wrapper">
                             <svg height="60" width="248">

@@ -50,6 +50,25 @@ label {
 ul.pagination {
   padding-top: 43px;
 }
+.display_flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+}
+.nombre_sistema {
+  flex-basis: calc(95% - 5px);
+  font-size: 13px;
+  text-align: center;
+  font-weight: 500;
+  padding: 0;
+  margin: 0;
+  color: white;
+}
+.nombre_sistema strong {
+  font-size: 15px;
+  font-weight: 700;
+}
 /* ===== Esta Clase viene desde el archivo dataTables.js y sirve solo para ocultar el input[type=search] original======*/
 
 .table.dataTable.dtr-inline.collapsed

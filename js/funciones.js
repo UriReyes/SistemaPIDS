@@ -171,7 +171,7 @@ $(document).ready(function () {
         if (result.value) {
           // location.replace("");
           $.ajax({
-            type: "GET",
+            type: "POST",
             url: "php/sesion/cerrar_sesion.php",
             success: function (msg) {
               if (msg == "Sesion Cerrada") {

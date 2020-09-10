@@ -766,15 +766,16 @@ function generarVale(datos, url, mensaje) {
     .then((data) => {
       $("#modalEsperaPDF").modal("hide");
       var file = new Blob([data], { type: "application/pdf" });
+      console.log(datos);
       var fileURL = URL.createObjectURL(file);
       window.open(fileURL);
-      // var fileLink = document.createElement("a");
-      // fileLink.href = fileURL;
-
-      // // it forces the name of the downloaded file
-      // fileLink.download = "vales.pdf";
+      var fileLink = document.createElement("a");
+      fileLink.href = fileURL;
+      // it forces the name of the downloaded file
+      fileLink.download = `ValeDe:${datos["nombre_prestario"]}${no_control}-Prestado:${datos["fecha_prestamo"]}`;
+      //URL.revokeObjectURL(file);
       // // triggers the click event
-      // fileLink.click();
+      fileLink.click();
     });
 }
 

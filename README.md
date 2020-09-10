@@ -16,4 +16,5 @@ Utilizar en un servidor para PHP
 ## Autor ✒️
 
 - **Uriel Reyes** - [UriReyes](https://github.com/UriReyes)
-- **Angel Ponce** - [AngelPonce]()
+- **Ángel Ponce** - [AngelPonce]()
+- **Román Angeles** - [RomanAngeles]()
